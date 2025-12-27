@@ -1,12 +1,8 @@
-import streamlit as st
-
 # Thiết lập giao diện
 st.set_page_config(page_title="Tra cứu mã lỗi - Baduy@2025", layout="centered")
-
 # Tiêu đề chính
 st.markdown("<h1 style='text-align: center;'>🛠️ KHO MÃ LỖI ĐIỆN TỬ VIỆT NAM</h1>", unsafe_allow_html=True)
 st.markdown("<h3 style='text-align: center;'>Design by baduy@2025 | Hotline: 0987973723</h3>", unsafe_allow_html=True)
-
 # Dữ liệu mã lỗi mở rộng
 data = {
     "Máy Giặt": {
@@ -42,8 +38,8 @@ data = {
     },
     "Bếp Từ": {
         "Sunhouse": {
-            "E0": "Chưa có nồi trên bếp hoặc nồi không phù hợp, mạch nhận nồi.",
-            "E1": "Bếp quá nóng do đun nấu quá lâu, quạt yếu hoặc hỏng quạt.",
+            "E0": "Chưa có nồi trên bếp hoặc nồi không phù hợp, mạch nhận biết nồi.",
+            "E1": "Bếp quá nóng do đun nấu quá lâu.",
             "E2": "Điện lưới quá mạnh (trên 240V).",
             "E3": "Điện lưới quá yếu (dưới 170V).",
             "E5": "Trở cảm biến bị quá nhiệt.",
