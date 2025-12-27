@@ -7,7 +7,7 @@ from datetime import datetime
 # Bạn chỉ cần sửa danh sách này trên GitHub để cấp mã mới
 DANH_SACH_KHACH_HANG = {
     "dungthu3ngay": {"ten": "Khách dùng thử", "loai": "Free", "han": "2025-12-30"},
-    "PRO-DUY-2025": {"ten": "Kỹ sư Ba Duy", "loai": "Pro", "han": "2030-12-31"},
+    "baduypro": {"ten": "Kỹ sư Ba Duy", "loai": "Pro", "han": "2030-12-31"},
     "BINH-0912": {"ten": "Anh Bình Thủ Đức", "loai": "Pro", "han": "2027-01-01"},
 }
 
@@ -100,3 +100,4 @@ if st.button("Tra cứu nhanh"):
 
 st.divider()
 st.markdown("<p style='text-align: center; color: gray;'>Thiết kế bởi Baduy@2025 - Hotline: 0987973723</p>", unsafe_allow_html=True)
+
