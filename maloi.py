@@ -11,9 +11,9 @@ st.markdown("<h3 style='text-align: center;'>Design by baduy@2025 | Hotline: 098
 data = {
     "Máy Giặt": {
         "Samsung": {
-            "4C": "Lỗi không cấp nước vào máy. Kiểm tra van cấp và lưới lọc.",
+            "4C": "Lỗi không cấp nước. Kiểm tra van cấp và lưới lọc.",
             "5C": "Lỗi không thoát nước. Kiểm tra bơm xả và ống thoát.",
-            "DC": "Lỗi mở cửa khi máy đang chạy.",
+            "DC": "Lỗi cửa mở khi máy đang chạy.",
         },
         "LG": {
             "DE": "Lỗi cửa máy chưa đóng chặt.",
@@ -32,24 +32,27 @@ data = {
         }
     },
     "Bếp Từ": {
+        "Sunhouse": {
+            "E0": "Chưa có nồi hoặc nồi không phù hợp.",
+            "E1": "Bếp quá nóng hoặc lỗi quạt tản nhiệt.",
+            "E2": "Điện áp quá cao (trên 240V).",
+            "E3": "Điện áp quá thấp (dưới 170V).",
+        },
+        "Bosch": {
+            "E0": "Lỗi truyền thông nội bộ giữa các bo mạch.",
+            "F0": "Lỗi cảm biến nhiệt độ mặt kính.",
+            "F2": "Bo mạch bị quá nhiệt, bếp tự ngắt bảo vệ.",
+            "F4": "Lỗi hệ thống điều khiển cảm ứng.",
+        },
+        "Elmich": {
+            "E1": "Lỗi cảm biến nhiệt mâm từ bị hở.",
+            "E2": "Lỗi cảm biến nhiệt mâm từ bị ngắn mạch.",
+            "E3": "Điện áp cung cấp quá cao.",
+            "E4": "Điện áp cung cấp quá thấp.",
+        },
         "Munchen": {
             "E1": "Lỗi cảm biến nhiệt độ trên mâm từ.",
-            "E2": "Lỗi nguồn điện cung cấp không ổn định.",
-            "E3": "Lỗi quạt tản nhiệt không hoạt động.",
-        },
-        "Chefs": {
-            "E1": "Quá nhiệt bo mạch hoặc mặt kính.",
-            "E2": "Điện áp quá cao (trên 240V).",
-            "E4": "Cảm biến nhiệt độ bị hở hoặc lỗi.",
-        },
-        "Midea": {
-            "E1": "Lỗi quá dòng (kiểm tra phần công suất).",
-            "E3": "Điện áp cao vượt mức cho phép.",
-            "E4": "Điện áp thấp dưới mức cho phép.",
-        },
-        "Barcher": {
-            "E1": "Không có nồi hoặc nồi không phù hợp.",
-            "E5": "Lỗi quá nhiệt IGBT (phần công suất).",
+            "E2": "Lỗi nguồn điện không ổn định.",
         }
     }
 }
@@ -67,4 +70,4 @@ if st.button("Tra cứu"):
         else:
             st.error("Chưa có dữ liệu cho mã lỗi này.")
 
-st.info("💡 Hotline hỗ trợ kỹ thuật: 0987973723 - Kỹ sư Ba Duy.")
+st.info("💡 Hotline hỗ trợ kỹ thuật: 0987973723 - Kỹ sư Ba Duy luôn sẵn sàng!")
