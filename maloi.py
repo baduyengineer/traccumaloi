@@ -1,8 +1,6 @@
 import streamlit as st
-
 # Thiết lập giao diện
 st.set_page_config(page_title="Tra cứu mã lỗi - Baduy@2025", layout="centered")
-
 # Tiêu đề chính
 st.markdown("<h1 style='text-align: center;'>🛠️ KHO MÃ LỖI ĐIỆN TỬ VIỆT NAM</h1>", unsafe_allow_html=True)
 st.markdown("<h3 style='text-align: center;'>Design by baduy@2025 | Hotline: 0987973723</h3>", unsafe_allow_html=True)
@@ -68,3 +66,4 @@ if st.button("Tra cứu"):
             st.error("Chưa có dữ liệu cho mã lỗi này.")
 
 st.info("💡 Hotline hỗ trợ kỹ thuật: 0987973723 - Kỹ sư Ba Duy.")
+
