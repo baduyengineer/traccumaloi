@@ -54,6 +54,13 @@ data = {
             "E2": {"loi": "Cảm biến mặt kính lỗi.", "pro": "Đo trị số cảm biến (thường 100k); Kiểm tra giắc cắm; Thay cảm biến mới."},
         },
         "Bosch": {
+           "E22": {"loi": "Lỗi bo cảm ứng do ẩm hoặc chập chân IC phím.", "pro": "Sấy khô bo mạch cảm ứng hoặc kiểm tra thay IC phím."},
+            "F0": {"loi": "Lỗi đường truyền dẫn, cáp tín hiệu.", "pro": "Kiểm tra lại giắc cắm và dây cáp nối giữa các tầng bo mạch."},
+            "F1": {"loi": "Lỗi cảm biến nhiệt độ (NTC).", "pro": "Đo trị số NTC (thường 10k-100k) hoặc kiểm tra bo cảm ứng."},
+            "F2": {"loi": "Quá nhiệt trên bo cảm ứng.", "pro": "Kiểm tra hệ thống quạt tản nhiệt của bếp."},
+            "F9": {"loi": "Lỗi truyền tín hiệu từ bo công suất lên mặt điều khiển.", "pro": "Kiểm tra cáp và nguồn cấp cho bo hiển thị."},
+            "Er21": {"loi": "Quá nhiệt trên main chính.", "pro": "Kiểm tra quạt và khe thông gió."},
+            "Er26": {"loi": "Lỗi relay chuyển tiếp hoặc mạch điều khiển relay.", "pro": "Kiểm tra các rơ-le trên board mạch công suất."},
             "F0": {"loi": "Lỗi truyền thông.", "pro": "Kiểm tra kết nối giữa bo điều khiển và bo công suất; Kiểm tra nguồn 5V."},
             "E": {"loi": "Lỗi phần mềm/Phím bấm.", "pro": "Vệ sinh mặt kính khu vực phím; Kiểm tra lò xo phím cảm ứng."},
         },
@@ -74,6 +81,37 @@ data = {
             "PE": {"loi": "Lỗi phao áp lực.", "pro": "Đo tần số phao; Kiểm tra giắc cắm phao bị oxy hóa."},
         },
         "Electrolux": {
+            # LỖI CẤP NƯỚC & ÁP LỰC (Từ ảnh 10, 11, 12, 13)
+            "E10": {"loi": "Vòi cấp bị đóng hoặc bộ lọc tắc nghẽn.", "pro": "1. Kiểm tra vòi nước. 2. Vệ sinh sạch lưới lọc van cấp. 3. Kiểm tra ống dẫn có bị gập không."},
+            "E11": {"loi": "Nước cấp yếu (chu trình giặt).", "pro": "1. Đảm bảo vòi đã bật. 2. Kiểm tra ống dẫn và lưới lọc. 3. Thay van cấp nước nếu hỏng."},
+            "E13": {"loi": "Rò rỉ nước.", "pro": "1. Kiểm tra ống áp suất xem có vết rách/thủng. 2. Thay cảm biến áp suất hoặc main PCB."},
+            "E35": {"loi": "Tràn nước.", "pro": "1. Kiểm tra van cấp nước bị kẹt mở. 2. Kiểm tra buồng áp suất bị tắc. 3. Lỗi cảm biến áp suất/PCB chính."},
+            "E38": {"loi": "Bầu áp lực bị nghẹt.", "pro": "1. Vệ sinh buồng áp suất. 2. Kiểm tra đai trống bị hỏng."},
+            "EC1": {"loi": "Van cấp nước bị nghẹt khi lưu lượng kế hoạt động.", "pro": "1. Kiểm tra van cấp nước. 2. Kiểm tra đường tín hiệu trên board mạch."},
+            "EF4": {"loi": "Áp lực nước yếu, không có tín hiệu lưu lượng.", "pro": "1. Kiểm tra vòi nước có bị khóa không. 2. Kiểm tra cảm biến lưu lượng."},
+
+            # LỖI XẢ NƯỚC & CỬA (Từ ảnh 2, 4, 7, 8, 9)
+            "E20": {"loi": "Ống thoát hoặc bơm xả bị tắc/quá tải.", "pro": "1. Tháo gỡ các đoạn ống bị xoắn. 2. Vệ sinh sạch bơm thoát nước."},
+            "E21": {"loi": "Khó xả nước (chu trình giặt).", "pro": "1. Vệ sinh bộ lọc bơm. 2. Kiểm tra hệ thống dây điện. 3. Thay bơm xả hoặc PCB."},
+            "E23": {"loi": "Hư Triac bơm nước.", "pro": "1. Đo điện trở trên bơm xả. 2. Kiểm tra hệ thống dây điện. 3. Thay main PCB."},
+            "E24": {"loi": "Mạch kiểm tra triac điều khiển bơm xả hư.", "pro": "Lỗi phần cứng trên main PCB (đường hồi tiếp). Thay main PCB."},
+            "E41": {"loi": "Cửa chưa đóng hoặc khóa cửa lỗi.", "pro": "1. Kiểm tra đóng lại cửa. 2. Thay khóa cửa mới."},
+            "E42": {"loi": "Cửa đóng không kín/Rò rỉ điện.", "pro": "1. Kiểm tra khóa cửa. 2. Kiểm tra rò rỉ điện từ thanh nhiệt (bộ phận làm nóng)."},
+            "E43": {"loi": "Triac khóa cửa hư.", "pro": "1. Thay khóa cửa. 2. Kiểm tra dây dẫn. 3. Thay main PCB."},
+
+            # LỖI MOTOR & INVERTER (Từ ảnh 1, 5, 6)
+            "E51": {"loi": "Triac cấp nguồn motor bị chập.", "pro": "Kiểm tra dòng điện rò từ động cơ hoặc hệ thống dây điện."},
+            "E52": {"loi": "Không có tín hiệu từ bộ điều tốc (Tacho).", "pro": "1. Kiểm tra chổi than và điện trở cuộn dây Tacho. 2. Thay main PCB/Bộ điều khiển động cơ."},
+            "E57": {"loi": "Inverter hút dòng quá nhiều (>15A).", "pro": "1. Đo điện trở cuộn dây động cơ. 2. Thay thế động cơ hoặc dây dẫn."},
+            "E58": {"loi": "Inverter hút dòng quá nhiều (>4.5A).", "pro": "1. Kiểm tra hệ thống dây dẫn. 2. Đo trở cuộn dây động cơ. 3. Thay mô-đun điều khiển."},
+            "E59": {"loi": "Không có tín hiệu điều tốc trong 3 giây.", "pro": "1. Kiểm tra dây dẫn. 2. Đo cuộn dây động cơ và tacho. 3. Thay mô-đun điều khiển."},
+            "E5A": {"loi": "Board inverter quá nóng.", "pro": "1. Kiểm tra lồng giặt xoay tự do không. 2. Thay mô-đun điều khiển động cơ."},
+            "E5H": {"loi": "Điện áp vào thấp hơn 175V.", "pro": "1. Kiểm tra hệ thống dây dẫn đến PCB biến tần. 2. Thay PCB động cơ."},
+
+            # LỖI LIÊN LẠC (Từ ảnh 3)
+            "E91": {"loi": "Lỗi kết nối PCB nguồn và PCB hiển thị.", "pro": "1. Kiểm tra dây cáp tín hiệu. 2. Thay PCB nguồn hoặc PCB hiển thị."},
+            "E95": {"loi": "Sai liên lạc giữa vi xử lý và EEPROM.", "pro": "Kiểm tra hoặc thay thế board mạch chính."},
+            "E98": {"loi": "Sai liên lạc giữa board chính và board inverter.", "pro": "Kiểm tra dây kết nối và board mạch."},
             "E10": {"loi": "Lỗi cấp nước.", "pro": "Kiểm tra áp lực nước đầu vào; Kiểm tra van cấp nước và mạch điều khiển."},
             "E20": {"loi": "Lỗi xả nước.", "pro": "Kiểm tra bơm xả; Kiểm tra tắc nghẽn đường ống thoát nước."},
         }
@@ -142,3 +180,4 @@ if st.sidebar.button("Đăng xuất"):
 
 st.divider()
 st.markdown("<p style='text-align: center; color: gray;'>Thiết kế bởi Baduy@2025 - Hotline: 0987973723</p>", unsafe_allow_html=True)
+
