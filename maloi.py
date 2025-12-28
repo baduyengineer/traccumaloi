@@ -17,7 +17,7 @@ if 'page' not in st.session_state: st.session_state['page'] = "🏠 Trang chủ"
 # --- MÀN HÌNH ĐĂNG NHẬP ---
 if st.session_state['auth'] is None:
     st.title("🔐 HỆ THỐNG BA DUY")
-    ma_nhap = st.text_input("Nhập mã kích hoạt:", type="password").strip()
+    ma_nhap = st.text_input("Nhập mã kích hoạt:", type="password", key="login_pass").strip()
     if st.button("XÁC NHẬN VÀO"):
         if ma_nhap in DANH_SACH_KHACH_HANG:
             st.session_state['auth'] = DANH_SACH_KHACH_HANG[ma_nhap]
@@ -40,10 +40,6 @@ KHO_DATA = {
         "Electrolux": {"E10": "Lỗi cấp nước.", "E20": "Lỗi thoát nước.", "E40": "Lỗi công tắc cửa."},
         "LG": {"IE": "Lỗi nước vào.", "OE": "Lỗi thoát nước.", "DE": "Lỗi cửa."},
         "Samsung": {"4E": "Lỗi cấp nước.", "5E": "Lỗi xả nước."}
-    },
-    "Điều Hòa": {
-        "Panasonic": {"H11": "Lỗi kết nối cục nóng/lạnh.", "F95": "Quá nhiệt dàn nóng."},
-        "Daikin": {"A6": "Lỗi motor quạt.", "U4": "Lỗi đường truyền tín hiệu."}
     }
 }
 
@@ -53,41 +49,33 @@ col1, col2 = st.columns(2)
 with col1:
     if st.button("🔍 TRA MÃ LỖI", use_container_width=True): st.session_state['page'] = "🔍 Tra mã"
 with col2:
-    if st.button("🧠 CHẨN ĐOÁN AI", use_container_width=True): st.session_state['page'] = "🧠 AI"
+    if st.button("💳 GIA HẠN", use_container_width=True): st.session_state['page'] = "💳 Gia hạn"
 
-# --- NỘI DUNG CHI TIẾT THEO TỪNG TRANG ---
+# --- XỬ LÝ NỘI DUNG TỪNG TRANG ---
 page = st.session_state['page']
 
 if page == "🔍 Tra mã":
-    st.subheader("🔍 TRA CỨU MÃ LỖI CHI TIẾT")
+    st.subheader("🔍 TRA CỨU MÃ LỖI")
     
-    # 1. Chọn Thiết bị
-    loai_may = st.radio("Bước 1: Chọn loại thiết bị", list(KHO_DATA.keys()), horizontal=True)
+    # CHỨC NĂNG CHỌN THIẾT BỊ VÀ HÃNG
+    loai_may = st.radio("1. Chọn thiết bị:", list(KHO_DATA.keys()), horizontal=True)
+    hang_may = st.selectbox(f"2. Chọn hãng {loai_may}:", list(KHO_DATA[loai_may].keys()))
     
-    # 2. Chọn Hãng (Chỉ hiện hãng của thiết bị đã chọn)
-    hang_may = st.selectbox(f"Bước 2: Chọn hãng {loai_may}", list(KHO_DATA[loai_may].keys()))
+    ma_loi = st.text_input("3. Nhập mã lỗi:").upper().strip()
     
-    # 3. Nhập mã lỗi
-    ma_loi = st.text_input("Bước 3: Nhập mã lỗi (Ví dụ: E0, E10...):").upper().strip()
-    
-    if st.button("XEM GIẢI PHÁP"):
+    if st.button("XEM KẾT QUẢ"):
         if ma_loi in KHO_DATA[loai_may][hang_may]:
-            st.success(f"🛠 **Kết quả cho {hang_may} {ma_loi}:**\n\n{KHO_DATA[loai_may][hang_may][ma_loi]}")
+            st.success(f"🛠 **Giải pháp:** {KHO_DATA[loai_may][hang_may][ma_loi]}")
         else:
-            st.warning(f"Chưa có dữ liệu cho mã lỗi {ma_loi} của hãng {hang_may}. Duy hãy cập nhật thêm!")
+            st.warning("Chưa có mã lỗi này. Duy hãy cập nhật thêm.")
 
-elif page == "🧠 AI":
-    st.subheader("🧠 CHẨN ĐOÁN THEO BIỂU HIỆN")
-    l_ai = st.selectbox("Chọn loại máy:", list(KHO_DATA.keys()))
-    tinh_trang = st.selectbox("Tình trạng thực tế:", [
-        "Mất nguồn hoàn toàn", "Rung lắc mạnh khi vắt", "Bếp không nóng/không nhận nồi", "Máy lạnh không mát"
-    ])
-    if st.button("PHÂN TÍCH NGAY"):
-        st.info("🤖 **Gợi ý kỹ thuật:** Kiểm tra khối nguồn xung và các tụ lọc nguồn chính.")
+elif page == "💳 Gia hạn":
+    st.subheader("💳 GIA HẠN DỊCH VỤ")
+    st.image(f"https://img.vietqr.io/image/ICB-104881077679-compact2.png?amount=500000&addInfo=GIAHAN")
+    st.info("Quét mã QR để nâng cấp bản quyền.")
 
-# --- DÒNG CUỐI: THOÁT HỆ THỐNG AN TOÀN ---
+# --- DÒNG CUỐI CÙNG (KHÔNG DÙNG RERUN ĐỂ TRÁNH LỖI) ---
 st.divider()
 if st.button("🚪 Đăng xuất"):
     st.session_state['auth'] = None
-    st.write("Đã thoát. Hãy tải lại trang (F5).")
-
+    st.write("Đã thoát. Hãy nhấn F5 để quay lại màn hình chính.")
