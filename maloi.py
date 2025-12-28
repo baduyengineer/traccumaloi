@@ -20,7 +20,7 @@ if 'auth' not in st.session_state:
 
 # GIAO DIỆN ĐĂNG NHẬP
 if not st.session_state['auth']:
-    st.markdown("<h2 style='text-align: center;'>🔐 ĐĂNG NHẬP HỆ THỐNG BADUY@2025</h2>", unsafe_allow_html=True)
+    st.markdown("<h2 style='text-align: center;'>🔐 ĐĂNG NHẬP TRA CỨU MÃ LỖI THIẾT BỊ ĐIỆN TỬ-BADUY@2025</h2>", unsafe_allow_html=True)
     st.warning("⚠️ Mỗi mã kích hoạt chỉ sử dụng cho 01 thiết bị duy nhất. Dùng chung mã sẽ bị khóa.")
     
     ma_nhap = st.text_input("Nhập mã cá nhân của bạn:", type="password").strip()
@@ -180,4 +180,5 @@ if st.sidebar.button("Đăng xuất"):
 
 st.divider()
 st.markdown("<p style='text-align: center; color: gray;'>Thiết kế bởi Baduy@2025 - Hotline: 0987973723</p>", unsafe_allow_html=True)
+
 
