@@ -38,6 +38,9 @@ data = {
                 "pro": "1. Kiểm tra cặp điện trở 200k (tổng 400k) đường AC báo về. \n2. Kiểm tra tụ lọc 4.7uF và diode bảo vệ 5V. \n3. Kiểm tra các điện trở dán 13k, 15k.",
                 "video": "https://www.youtube.com/watch?v=J_iBHlMdcmk" # LINK VIDEO ĐÃ NẰM Ở ĐÂY
             },
+            "E1": {"loi": "Quá nhiệt IGBT.", "pro": "Kiểm tra quạt làm mát, thay mỡ tản nhiệt IGBT, kiểm tra cảm biến NTC dưới lưng IGBT."},
+            "E2": {"loi": "Quá nhiệt mặt kính.", "pro": "Kiểm tra cảm biến nhiệt mâm từ (100k), vệ sinh cửa lấy gió."},
+        },
         },
         "Bosch": {
             "E22": {"loi": "Lỗi bo cảm ứng do độ ẩm, nước xâm nhập hoặc chập chân IC phím.", "pro": "Sấy khô bo mạch, kiểm tra cách điện vùng phím."},
@@ -95,3 +98,4 @@ if st.button("Tra cứu chuyên sâu"):
 
 st.divider()
 st.markdown("<p style='text-align: center; color: gray;'>Hỗ trợ kỹ thuật: 0987973723</p>", unsafe_allow_html=True)
+
