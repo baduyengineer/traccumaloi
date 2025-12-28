@@ -17,17 +17,17 @@ if 'page' not in st.session_state: st.session_state['page'] = "🔍 Tra mã"
 # --- MÀN HÌNH ĐĂNG NHẬP ---
 if st.session_state['auth'] is None:
     st.title("🔐 HỆ THỐNG BA DUY")
-    ma_nhap = st.text_input("Mã kích hoạt:", type="password").strip()
+    ma_nhap = st.text_input("Nhập mã kích hoạt:", type="password", key="pwd").strip()
     if st.button("XÁC NHẬN VÀO"):
         if ma_nhap in DANH_SACH_KHACH_HANG:
             st.session_state['auth'] = DANH_SACH_KHACH_HANG[ma_nhap]
             st.rerun()
-        else: st.error("Sai mã!")
+        else: st.error("Sai mã rồi Duy ơi!")
     st.stop()
 
 # --- HEADER ---
 user = st.session_state['auth']
-st.write(f"👤 Kỹ sư: **{user['ten']}**")
+st.info(f"👤 Kỹ sư: **{user['ten']}**")
 
 # --- KHO DỮ LIỆU ---
 KHO_DATA = {
@@ -43,7 +43,7 @@ KHO_DATA = {
     }
 }
 
-# --- MENU NÚT BẤM (HIỂN THỊ TRỰC DIỆN) ---
+# --- MENU CHÍNH ---
 st.divider()
 c1, c2 = st.columns(2)
 with c1:
@@ -51,28 +51,29 @@ with c1:
 with c2:
     if st.button("💳 GIA HẠN", use_container_width=True): st.session_state['page'] = "💳 Gia hạn"
 
-# --- XỬ LÝ TRANG ---
+# --- HIỂN THỊ NỘI DUNG ---
 page = st.session_state['page']
 
 if page == "🔍 Tra mã":
-    st.subheader("🔍 TRA CỨU NHANH")
-    # HIỂN THỊ CHỌN THIẾT BỊ VÀ HÃNG NGAY TRÊN MÀN HÌNH
-    loai = st.radio("1. Chọn máy:", list(KHO_DATA.keys()), horizontal=True)
-    hang = st.selectbox(f"2. Chọn hãng {loai}:", list(KHO_DATA[loai].keys()))
-    ma = st.text_input("3. Nhập mã lỗi:").upper().strip()
+    st.subheader("🔍 HỆ THỐNG TRA CỨU")
+    
+    # CHỨC NĂNG CHỌN THIẾT BỊ VÀ HÃNG (HIỂN THỊ NGAY)
+    loai_chon = st.radio("1. Chọn loại máy:", list(KHO_DATA.keys()), horizontal=True)
+    hang_chon = st.selectbox(f"2. Chọn hãng {loai_chon}:", list(KHO_DATA[loai_chon].keys()))
+    ma_loi = st.text_input("3. Nhập mã lỗi:").upper().strip()
     
     if st.button("TÌM GIẢI PHÁP"):
-        if ma in KHO_DATA[loai][hang]:
-            st.success(f"🛠 **{hang} {ma}:** {KHO_DATA[loai][hang][ma]}")
-        else: st.warning("Chưa có dữ liệu mã này.")
+        if ma_loi in KHO_DATA[loai_chon][hang_chon]:
+            st.success(f"🛠 **Kết quả:** {KHO_DATA[loai_chon][hang_chon][ma_loi]}")
+        else: st.warning("Chưa có mã này trong kho dữ liệu.")
 
 elif page == "💳 Gia hạn":
-    st.subheader("💳 GIA HẠN DỊCH VỤ")
+    st.subheader("💳 THÔNG TIN GIA HẠN")
     st.image("https://img.vietqr.io/image/ICB-104881077679-compact2.png?amount=500000&addInfo=GIAHAN")
-    st.info("Nội dung: GIA HAN - TRINH BA DUY")
+    st.write("Nội dung: GIA HAN - BA DUY")
 
-# --- DÒNG CUỐI CÙNG (AN TOÀN TUYỆT ĐỐI) ---
+# --- DÒNG CUỐI CÙNG: TUYỆT ĐỐI KHÔNG DÙNG RERUN ---
 st.divider()
-if st.button("🚪 Đăng xuất"):
+if st.button("🚪 Thoát ứng dụng"):
     st.session_state['auth'] = None
-    st.write("Đã thoát. Hãy F5 trang.")
+    st.write("Đã đăng xuất. Vui lòng làm mới trang (F5).")
