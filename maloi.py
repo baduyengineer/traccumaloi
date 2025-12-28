@@ -46,7 +46,7 @@ data = {
             "E22": {"loi": "Lỗi bo cảm ứng do độ ẩm, nước xâm nhập hoặc chập chân IC phím.", "pro": "Sấy khô bo mạch, kiểm tra cách điện vùng phím."},
             "F0": {"loi": "Lỗi đường truyền dẫn, cáp hoặc dây tín hiệu.", "pro": "Kiểm tra cáp kết nối giữa bo công suất và bo hiển thị."},
             "Er26": {"loi": "Lỗi relay chuyển tiếp, mạch điều khiển hoặc dây kết nối.", "pro": "Thay thế rơ-le trên bo mạch chính."},
-        }
+        },
     },
     "Máy Giặt": {
         "Electrolux": {
@@ -98,4 +98,5 @@ if st.button("Tra cứu chuyên sâu"):
 
 st.divider()
 st.markdown("<p style='text-align: center; color: gray;'>Hỗ trợ kỹ thuật: 0987973723</p>", unsafe_allow_html=True)
+
 
