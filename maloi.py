@@ -47,7 +47,7 @@ data = {
             "F0": {"loi": "Lỗi đường truyền dẫn, cáp hoặc dây tín hiệu.", "pro": "Kiểm tra cáp kết nối giữa bo công suất và bo hiển thị."},
             "Er26": {"loi": "Lỗi relay chuyển tiếp, mạch điều khiển hoặc dây kết nối.", "pro": "Thay thế rơ-le trên bo mạch chính."},
         },
-    },
+
     "Máy Giặt": {
         "Electrolux": {
             "E10": {"loi": "Lỗi nguồn cấp nước (Vòi đóng, bộ lọc tắc hoặc đường ống hỏng).", "pro": "Vệ sinh lưới lọc, kiểm tra van cấp nước."},
@@ -98,5 +98,6 @@ if st.button("Tra cứu chuyên sâu"):
 
 st.divider()
 st.markdown("<p style='text-align: center; color: gray;'>Hỗ trợ kỹ thuật: 0987973723</p>", unsafe_allow_html=True)
+
 
 
