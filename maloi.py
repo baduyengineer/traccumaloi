@@ -2,10 +2,10 @@ import streamlit as st
 from datetime import datetime
 
 # ========================================================
-# 1. QUẢN LÝ BẢN QUYỀN (MỤC 4)
+# 1. QUẢN LÝ BẢN QUYỀN (Mục 4)
 # ========================================================
 DANH_SACH_KHACH_HANG = {
-    "PRO-DUY-2025": {"ten": "Kỹ sư Ba Duy", "loai": "Pro", "han": "2026-01-05"}, # Gần hết hạn để test
+    "PRO-DUY-2025": {"ten": "Kỹ sư Ba Duy", "loai": "Pro", "han": "2026-01-05"},
     "ADMIN-888": {"ten": "Quản trị viên", "loai": "Pro", "han": "2030-12-31"},
 }
 
@@ -14,13 +14,13 @@ if 'auth' not in st.session_state:
 
 if not st.session_state['auth']:
     st.markdown("<h2 style='text-align: center;'>🔐 HỆ THỐNG TRA CỨU KỸ THUẬT BADUY@2025</h2>", unsafe_allow_html=True)
-    ma_nhap = st.text_input("Nhập mã kích hoạt của bạn:", type="password").strip()
+    ma_nhap = st.text_input("Nhập mã kích hoạt:", type="password").strip()
     if st.button("Kích hoạt bản quyền"):
         if ma_nhap in DANH_SACH_KHACH_HANG:
             st.session_state['auth'] = DANH_SACH_KHACH_HANG[ma_nhap]
             st.rerun()
         else:
-            st.error("Mã không chính xác hoặc đã bị khóa.")
+            st.error("Mã không đúng!")
     st.stop()
 
 user = st.session_state['auth']
@@ -28,32 +28,45 @@ ngay_het_han = datetime.strptime(user['han'], "%Y-%m-%d")
 ngay_con_lai = (ngay_het_han - datetime.now()).days
 
 # ========================================================
-# 2. DỮ LIỆU CHUẨN HÓA (DATA)
+# 2. KHO DỮ LIỆU TỔNG HỢP TỪ ẢNH BẠN GỬI
 # ========================================================
 data_ma_loi = {
+    "Máy Giặt": {
+        "Electrolux": {
+            "E10": {"loi": "Lỗi nguồn cấp nước (Vòi đóng, bộ lọc tắc).", "pro": "Kiểm tra vòi nước, vệ sinh bộ lọc, kiểm tra van cấp."},
+            "E20": {"loi": "Lỗi xả nước (Ống xả tắc, bơm hỏng).", "pro": "Kiểm tra bơm xả, vệ sinh hố bơm, đo cuộn dây bơm."},
+            "E23": {"loi": "Hư Triac bơm nước.", "pro": "Kiểm tra hệ thống dây điện, đo Triac trên main PCB hoặc thay main."},
+            "E41": {"loi": "Lỗi cửa mở (sau 15 giây).", "pro": "Kiểm tra khóa cửa bị lỗi hoặc cửa chưa đóng chặt."},
+            "E52": {"loi": "Không có tín hiệu từ bộ điều tốc (Tacho).", "pro": "Kiểm tra chổi than động cơ, đo điện trở cuộn dây động cơ/tacho."},
+            "E57": {"loi": "Inverter hút dòng quá nhiều (>15A).", "pro": "Kiểm tra hệ thống dây dẫn, đo cuộn dây động cơ, thay board Inverter nếu cần."},
+            "E91": {"loi": "Lỗi kết nối giữa PCB nguồn và PCB hiển thị.", "pro": "Kiểm tra dây cáp tín hiệu giữa 2 board, sửa hoặc thay PCB."},
+        }
+    },
     "Bếp Từ": {
         "Sunhouse": {
             "E0": {
-                "loi": "Lỗi mạch nhận biết điện áp đầu vào AC.", 
-                "pro": "Đo cặp trở 200k đường AC. Kiểm tra tụ 4.7uF và diode bảo vệ 5V.",
+                "loi": "Lỗi mạch nhận biết điện áp đầu vào.", 
+                "pro": "Kiểm tra cặp trở 200k đường AC, tụ lọc 4.7uF và diode bảo vệ 5V.",
                 "video": "https://www.youtube.com/watch?v=J_iBHlMdcmk"
             },
         },
         "Bosch": {
-            "E22": {"loi": "Lỗi bo cảm ứng (ẩm/nước).", "pro": "Sấy bo, kiểm tra IC phím."},
+            "E22": {"loi": "Lỗi bo cảm ứng do độ ẩm hoặc chập chân IC phím.", "pro": "Sấy bo mạch, vệ sinh sạch vùng phím cảm ứng."},
+            "F0": {"loi": "Lỗi đường truyền dẫn, cáp hoặc dây tín hiệu.", "pro": "Kiểm tra cáp nối bo công suất và hiển thị."},
+            "Er26": {"loi": "Lỗi relay chuyển tiếp hoặc mạch điều khiển.", "pro": "Thay thế rơ-le trên bo mạch chính."},
         }
     }
 }
 
+# Dữ liệu Chẩn đoán (Mục 3)
 data_chan_doan = {
     "Bếp Từ": {
-        "Bếp không nhận nồi (không báo lỗi)": "Kiểm tra tụ 0.33uF, mạch Driver (8050/8550) và trở hồi tiếp.",
-        "Bếp nổ cầu chì/chập IGBT": "Thay IGBT, cầu diode. Kiểm tra mạch lái trước khi thử điện.",
-        "Mất nguồn hoàn toàn": "Kiểm tra IC nguồn, trở cầu chì và diode nắn 300V."
+        "Bếp không nóng/không nhận nồi": "Kiểm tra tụ 0.33uF, mạch Driver và trở hồi tiếp (thường từ 470k-820k).",
+        "Mất nguồn hoàn toàn": "Kiểm tra cầu chì, IC nguồn (Viper12A), và diode nắn 300V."
     },
     "Máy Giặt": {
-        "Máy rung lắc mạnh khi vắt": "Kiểm tra giảm xóc, cân bằng lồng, bi/trục.",
-        "Nước chảy vào không ngừng": "Kiểm tra van cấp (bị kẹt rác) hoặc chập Triac cấp nước."
+        "Vắt rung lắc mạnh": "Kiểm tra ty treo lồng, cân bằng máy, hoặc hỏng bi phớt trục.",
+        "Nước vào không ngừng": "Kiểm tra van cấp bị kẹt rác hoặc hỏng cảm biến áp suất mực nước."
     }
 }
 
@@ -67,56 +80,48 @@ if ngay_con_lai <= 7:
 menu = st.sidebar.radio("CHỨC NĂNG CHÍNH", 
     ["🔍 Tra mã lỗi", "🧠 Chẩn đoán bệnh (AI)", "📚 Sơ đồ thông minh", "💳 Gia hạn"])
 
-# --- MENU: TRA MÃ LỖI ---
 if menu == "Tra mã lỗi":
-    st.header("🔍 TRA CỨU MÃ LỖI NHANH")
+    st.header("🔍 KHO MÃ LỖI CHI TIẾT")
     col1, col2 = st.columns(2)
     with col1:
-        loai = st.selectbox("Thiết bị", list(data_ma_loi.keys()))
+        loai = st.selectbox("Chọn thiết bị", list(data_ma_loi.keys()))
     with col2:
-        hang = st.selectbox("Hãng", list(data_ma_loi[loai].keys()))
+        hang = st.selectbox("Chọn hãng", list(data_ma_loi[loai].keys()))
     
-    ma = st.text_input("Nhập mã lỗi:").upper().strip()
+    ma = st.text_input("Nhập mã lỗi (VD: E41, E52, E0...):").upper().strip()
     if st.button("Tra cứu ngay"):
         if ma in data_ma_loi[loai][hang]:
             res = data_ma_loi[loai][hang][ma]
             st.info(f"📌 **Mô tả:** {res['loi']}")
-            st.success(f"🛠️ **Hướng dẫn Pro:** {res['pro']}")
+            st.success(f"🛠️ **Hướng dẫn sửa:**\n{res['pro']}")
             if "video" in res:
                 st.video(res['video'])
         else:
-            st.error("Mã lỗi đang cập nhật...")
+            st.error("Mã lỗi này đang được cập nhật dữ liệu...")
 
-# --- MENU: CHẨN ĐOÁN (MỤC 3) ---
 elif menu == "Chẩn đoán bệnh (AI)":
     st.header("🧠 CHẨN ĐOÁN THEO BIỂU HIỆN")
-    st.write("Dành cho các ca bệnh khó **không hiện mã lỗi**.")
-    loai_ai = st.selectbox("Chọn thiết bị", list(data_chan_doan.keys()))
-    bieu_hien = st.selectbox("Biểu hiện của máy?", list(data_chan_doan[loai_ai].keys()))
-    if st.button("Phân tích lỗi"):
-        st.subheader("📋 Kết quả phân tích:")
+    st.write("Giải quyết các ca bệnh không báo mã lỗi.")
+    loai_ai = st.selectbox("Thiết bị đang sửa:", list(data_chan_doan.keys()))
+    bieu_hien = st.selectbox("Máy đang bị tình trạng gì?", list(data_chan_doan[loai_ai].keys()))
+    if st.button("Phân tích nguyên nhân"):
+        st.subheader("📋 Gợi ý xử lý từ trợ lý Duy:")
         st.success(data_chan_doan[loai_ai][bieu_hien])
 
-# --- MENU: SƠ ĐỒ THÔNG MINH (TÍNH NĂNG MỚI) ---
 elif menu == "Sơ đồ thông minh":
-    st.header("📚 TRỢ LÝ TÌM SƠ ĐỒ PDF")
-    st.write("Hệ thống tự động lọc sơ đồ (Schematic) từ kho dữ liệu quốc tế.")
-    model_may = st.text_input("Nhập Model máy hoặc Mã board (VD: K2012, Electrolux EWP85742...):")
-    if st.button("Tìm sơ đồ chuẩn"):
-        # Tạo câu lệnh tìm kiếm chuyên gia
+    st.header("📚 TRỢ LÝ TÌM SƠ ĐỒ CHUYÊN NGHIỆP")
+    model_may = st.text_input("Nhập Model hoặc Mã Board (VD: Electrolux EWP85742, Board K2012...):")
+    if st.button("Tìm tài liệu PDF"):
         google_url = f"https://www.google.com/search?q={model_may}+service+manual+pdf+schematic+diagram"
-        st.info(f"🔍 Đang tạo liên kết tải file cho Model: {model_may}")
-        st.markdown(f"### [👉 Bấm vào đây để tải Sơ đồ/Tài liệu PDF]({google_url})")
-        st.warning("Mẹo: Hãy tìm các kết quả có đuôi .pdf hoặc từ trang ManualsLib.")
+        st.markdown(f"### [👉 Bấm vào đây để xem kết quả sơ đồ cho {model_may}]({google_url})")
+        st.info("Trợ lý đã lọc sẵn các kết quả PDF và Schematic chuẩn cho bạn.")
 
-# --- MENU: GIA HẠN ---
 elif menu == "Gia hạn":
-    st.header("💳 QUẢN LÝ BẢN QUYỀN")
-    st.write(f"Tên khách hàng: **{user['ten']}**")
-    st.write(f"Ngày hết hạn: **{user['han']}** (Còn {ngay_con_lai} ngày)")
+    st.header("💳 THÔNG TIN BẢN QUYỀN")
+    st.write(f"Khách hàng: **{user['ten']}**")
+    st.write(f"Hạn dùng: **{user['han']}**")
     st.divider()
-    st.write("Liên hệ Duy để gia hạn hoặc mua bản quyền vĩnh viễn:")
-    st.success("📞 Zalo/SĐT: 0987973723")
+    st.success("Liên hệ Duy (0987973723) để gia hạn nhanh chóng.")
 
 if st.sidebar.button("Đăng xuất"):
     st.session_state['auth'] = None
