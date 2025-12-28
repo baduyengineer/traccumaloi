@@ -12,12 +12,12 @@ DANH_SACH_KHACH_HANG = {
 }
 
 if 'auth' not in st.session_state: st.session_state['auth'] = None
-if 'page' not in st.session_state: st.session_state['page'] = "🏠 Trang chủ"
+if 'page' not in st.session_state: st.session_state['page'] = "🔍 Tra mã"
 
 # --- MÀN HÌNH ĐĂNG NHẬP ---
 if st.session_state['auth'] is None:
     st.title("🔐 HỆ THỐNG BA DUY")
-    ma_nhap = st.text_input("Nhập mã kích hoạt:", type="password", key="login_pass").strip()
+    ma_nhap = st.text_input("Nhập mã kích hoạt:", type="password").strip()
     if st.button("XÁC NHẬN VÀO"):
         if ma_nhap in DANH_SACH_KHACH_HANG:
             st.session_state['auth'] = DANH_SACH_KHACH_HANG[ma_nhap]
@@ -25,25 +25,25 @@ if st.session_state['auth'] is None:
         else: st.error("Mã không đúng!")
     st.stop()
 
-# --- HEADER THÔNG TIN ---
+# --- HEADER ---
 user = st.session_state['auth']
 st.write(f"👤 Kỹ sư: **{user['ten']}**")
 
-# --- KHO DỮ LIỆU TỔNG HỢP ---
+# --- KHO DỮ LIỆU ---
 KHO_DATA = {
     "Bếp Từ": {
-        "Sunhouse": {"E0": "Lỗi nhận nồi. Kiểm tra tụ 5uF, 0.33uF, trở hồi tiếp.", "E1": "Lỗi quá nhiệt cảm biến."},
-        "Kangaroo": {"E1": "Lỗi cảm biến mặt kính.", "E2": "Quá nhiệt IGBT."},
-        "Midea": {"E1": "Lỗi cảm biến.", "E3": "Điện áp cao."}
+        "Sunhouse": {"E0": "Lỗi nhận nồi. Kiểm tra tụ 5uF, 0.33uF.", "E1": "Quá nhiệt."},
+        "Kangaroo": {"E1": "Lỗi cảm biến.", "E2": "Quá nhiệt IGBT."},
+        "Midea": {"E1": "Lỗi cảm biến.", "E3": "Áp cao."}
     },
     "Máy Giặt": {
-        "Electrolux": {"E10": "Lỗi cấp nước.", "E20": "Lỗi thoát nước.", "E40": "Lỗi công tắc cửa."},
-        "LG": {"IE": "Lỗi nước vào.", "OE": "Lỗi thoát nước.", "DE": "Lỗi cửa."},
-        "Samsung": {"4E": "Lỗi cấp nước.", "5E": "Lỗi xả nước."}
+        "Electrolux": {"E10": "Lỗi nước vào.", "E20": "Lỗi nước ra."},
+        "LG": {"IE": "Lỗi nước.", "OE": "Lỗi xả."},
+        "Samsung": {"4E": "Lỗi cấp nước.", "5E": "Lỗi xả."}
     }
 }
 
-# --- GIAO DIỆN NÚT CHỌN CHỨC NĂNG (HIỂN THỊ NGAY TRÊN MÀN HÌNH) ---
+# --- GIAO DIỆN CHÍNH (NÚT BẤM TO TRÊN MÀN HÌNH) ---
 st.divider()
 col1, col2 = st.columns(2)
 with col1:
@@ -51,31 +51,26 @@ with col1:
 with col2:
     if st.button("💳 GIA HẠN", use_container_width=True): st.session_state['page'] = "💳 Gia hạn"
 
-# --- XỬ LÝ NỘI DUNG TỪNG TRANG ---
+# --- NỘI DUNG ---
 page = st.session_state['page']
 
 if page == "🔍 Tra mã":
-    st.subheader("🔍 TRA CỨU MÃ LỖI")
-    
-    # CHỨC NĂNG CHỌN THIẾT BỊ VÀ HÃNG
-    loai_may = st.radio("1. Chọn thiết bị:", list(KHO_DATA.keys()), horizontal=True)
-    hang_may = st.selectbox(f"2. Chọn hãng {loai_may}:", list(KHO_DATA[loai_may].keys()))
-    
-    ma_loi = st.text_input("3. Nhập mã lỗi:").upper().strip()
+    st.subheader("🔍 TRA CỨU CHI TIẾT")
+    # CHỨC NĂNG CHỌN THIẾT BỊ VÀ HÃNG THEO Ý DUY
+    loai = st.radio("1. Chọn thiết bị:", list(KHO_DATA.keys()), horizontal=True)
+    hang = st.selectbox(f"2. Chọn hãng {loai}:", list(KHO_DATA[loai].keys()))
+    ma = st.text_input("3. Nhập mã lỗi:").upper().strip()
     
     if st.button("XEM KẾT QUẢ"):
-        if ma_loi in KHO_DATA[loai_may][hang_may]:
-            st.success(f"🛠 **Giải pháp:** {KHO_DATA[loai_may][hang_may][ma_loi]}")
-        else:
-            st.warning("Chưa có mã lỗi này. Duy hãy cập nhật thêm.")
+        if ma in KHO_DATA[loai][hang]:
+            st.success(f"🛠 **{hang} {ma}:** {KHO_DATA[loai][hang][ma]}")
+        else: st.warning("Chưa có mã này.")
 
 elif page == "💳 Gia hạn":
-    st.subheader("💳 GIA HẠN DỊCH VỤ")
-    st.image(f"https://img.vietqr.io/image/ICB-104881077679-compact2.png?amount=500000&addInfo=GIAHAN")
-    st.info("Quét mã QR để nâng cấp bản quyền.")
+    st.subheader("💳 GIA HẠN")
+    st.image("https://img.vietqr.io/image/ICB-104881077679-compact2.png?amount=500000&addInfo=GIAHAN")
 
-# --- DÒNG CUỐI CÙNG (KHÔNG DÙNG RERUN ĐỂ TRÁNH LỖI) ---
 st.divider()
 if st.button("🚪 Đăng xuất"):
     st.session_state['auth'] = None
-    st.write("Đã thoát. Hãy nhấn F5 để quay lại màn hình chính.")
+    st.write("Đã thoát. Hãy F5 trang.")
