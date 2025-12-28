@@ -1,16 +1,3 @@
-Chào Duy, mình hiểu rồi. Để có đầy đủ chức năng chọn Thiết bị (Bếp từ, Máy giặt...) và Hãng (Sunhouse, Electrolux...) hiện ngay trên màn hình mà không bị ẩn, mình đã cập nhật lại bản v17.0.
-
-Lưu ý quan trọng để không bị lỗi:
-
-Xóa sạch file cũ: Duy hãy xóa hết nội dung trong file maloi.py.
-
-Chỉ dán code: Chỉ copy phần trong khung đen bên dưới. Không dán lời chào hay giải thích này vào file vì sẽ bị lỗi SyntaxError (lỗi cú pháp) như trong ảnh bạn gửi.
-
-Lỗi dòng cuối: Mình đã loại bỏ hoàn toàn lệnh st.rerun() ở cuối file để tránh lỗi đỏ.
-
-Bản Code v17.0: Đầy đủ Thiết bị & Hãng - Nút bấm lớn cho Mobile
-Python
-
 import streamlit as st
 from datetime import datetime, timedelta
 
@@ -103,3 +90,4 @@ st.divider()
 if st.button("🚪 Đăng xuất"):
     st.session_state['auth'] = None
     st.write("Đã thoát. Hãy tải lại trang (F5).")
+
