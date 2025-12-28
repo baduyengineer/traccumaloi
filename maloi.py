@@ -1,104 +1,120 @@
 import streamlit as st
 from datetime import datetime
 
-# 1. CAU HINH HE THONG
-st.set_page_config(page_title="BA DUY TECH PRO 2025", layout="wide")
+# 1. CẤU HÌNH HỆ THỐNG - TỐI ƯU MOBILE
+st.set_page_config(page_title="BA DUY TECH PRO 2025", layout="centered")
 
-if 'auth' not in st.session_state:
-    st.session_state['auth'] = None
+if 'auth' not in st.session_state: st.session_state['auth'] = None
+if 'page' not in st.session_state: st.session_state['page'] = "🏠 Trang chủ"
 
-DANH_SACH_KHACH_HANG = {
-    "PRO-DUY-2025": {"ten": "Ky su Ba Duy", "han": "2026-01-05"},
-    "DUY-FREE-3D": {"ten": "Khach dung thu", "han": "2025-12-30"},
+# DANH SÁCH NGƯỜI DÙNG
+USERS = {
+    "PRO-DUY-2025": {"ten": "Kỹ sư Ba Duy", "han": "2026-01-05"},
+    "DUY-FREE-3D": {"ten": "Khách dùng thử", "han": "2025-12-30"},
 }
 
-# --- MAN HINH DANG NHAP ---
+# --- MÀN HÌNH ĐĂNG NHẬP ---
 if st.session_state['auth'] is None:
-    st.title("🔐 HE THONG KY THUAT BA DUY")
-    ma = st.text_input("Nhap ma kich hoat:", type="password").strip()
-    if st.button("XAC NHAN VAO"):
-        if ma in DANH_SACH_KHACH_HANG:
-            st.session_state['auth'] = DANH_SACH_KHACH_HANG[ma]
+    st.title("🔐 HỆ THỐNG BA DUY")
+    ma = st.text_input("Nhập mã kích hoạt:", type="password").strip()
+    if st.button("XÁC NHẬN VÀO", use_container_width=True):
+        if ma in USERS:
+            st.session_state['auth'] = USERS[ma]
             st.rerun()
-        else:
-            st.error("Ma khong dung!")
+        else: st.error("Sai mã kích hoạt!")
     st.stop()
 
-# --- SIDEBAR MENU ---
+# --- HEADER & NAVIGATION ---
 user = st.session_state['auth']
-with st.sidebar:
-    st.header(f"👤 {user['ten']}")
-    menu = st.radio("MENU CHINH", ["🔍 Tra ma loi", "💳 Gia han"])
-    st.divider()
-    if st.button("🚪 Dang xuat"):
-        st.session_state['auth'] = None
-        st.rerun()
+st.success(f"👤 {user['ten']} | 📅 Hạn: {user['han']}")
 
-# --- KHO DU LIEU MA LOI CHI TIET (PANASONIC & DAIKIN) ---
-DATA_LOI = {
-    "Dieu Hoa": {
+# KHO DỮ LIỆU TỔNG HỢP SIÊU KHỦNG
+DATA_TECH = {
+    "Điều Hòa": {
         "Panasonic": {
-            "00H": "Binh thuong, khong co loi.",
-            "11H": "Loi duong truyen tin hieu giua dan lanh va dan nong.",
-            "12H": "Loi khac biet cong suat giua dan lanh va dan nong.",
-            "15H": "Loi cam bien nhiet do may nen (dau day).",
-            "16H": "Dong tai may nen qua thap (thieu gas hoac hong block).",
-            "19H": "Loi quat dan lanh (quat khong quay hoac hong hall).",
-            "23H": "Loi cam bien nhiet do dan lanh.",
-            "90F": "Loi mach tang ap PFC ra may nen.",
-            "91F": "Dong tai may nen qua thap.",
-            "93F": "Loi toc do quay may nen (bat thuong xung).",
-            "95F": "Nhiet do dan nong qua cao.",
-            "96F": "Qua nhiet bo Transistor cong suat may nen (IPM).",
-            "97F": "Nhiet do may nen qua cao.",
-            "98F": "Dong tai may nen qua cao.",
-            "99F": "Xung DC ra may nen qua cao.",
-            "H11": "Loi ket noi giua khoi trong va khoi ngoai."
+            "H11": "Lỗi kết nối dàn nóng/lạnh. Kiểm tra dây tín hiệu, bo mạch.",
+            "H15": "Lỗi cảm biến nhiệt máy nén. Kiểm tra cảm biến đầu đẩy.",
+            "H16": "Dòng tải thấp. Kiểm tra gas, block.",
+            "F91": "Lỗi dòng tải máy nén. Kiểm tra bo công suất.",
+            "F93": "Lỗi tốc độ máy nén. Kiểm tra block hoặc bo Inverter.",
+            "F95": "Quá nhiệt dàn nóng. Kiểm tra quạt hoặc dàn bẩn."
         },
         "Daikin": {
-            "A1": "Loi bo mach dan lanh.",
-            "A3": "Loi he thong dieu khien muc nuoc xa (bom xa).",
-            "A6": "Loi motor quat dan lanh (qua tai/hong).",
-            "C4": "Loi cam bien nhiet do dan trao doi nhiet (R2T).",
-            "E1": "Loi bo mach dan nong.",
-            "E5": "Loi dong co may nen Inverter (ket/ro dien).",
-            "E7": "Loi motor quat dan nong.",
-            "F3": "Nhiet do duong ong day bat thuong.",
-            "J3": "Loi cam bien nhiet do ong day (R31T-R33T).",
-            "L5": "Loi may nen bien tan (qua dong dau ra).",
-            "U0": "Canh bao thieu gas hoac nghet duong ong.",
-            "U2": "Nguon dien ap khong du hoac sut ap nhanh.",
-            "U4": "Loi duong truyen tin hieu giua dan nong va dan lanh.",
-            "UA": "Loi cai dat he thong (khong tuong thich dan nong/lanh).",
-            "UF": "Loi he thong lanh chua duoc lap dung/khong tuong thich."
+            "U4": "Lỗi truyền tín hiệu nóng/lạnh. Kiểm tra dây số 3.",
+            "U0": "Thiếu gas hoặc nghẹt hệ thống lạnh.",
+            "E7": "Lỗi motor quạt dàn nóng. Kiểm tra quạt, bo nóng.",
+            "L5": "Lỗi máy nén Inverter (quá dòng). Kiểm tra block.",
+            "F3": "Nhiệt độ ống đẩy cao. Kiểm tra gas, van tiết lưu."
         }
+    },
+    "Máy Giặt": {
+        "Electrolux": {
+            "E10": "Không cấp nước. Kiểm tra van cấp, lưới lọc.",
+            "E20": "Không thoát nước. Kiểm tra bơm xả, đường ống.",
+            "E40": "Lỗi công tắc cửa. Kiểm tra khóa hoặc chốt cửa.",
+            "E90": "Lỗi phần mềm/bo mạch hiển thị.",
+            "EH0": "Nguồn điện không ổn định. Kiểm tra điện áp."
+        },
+        "LG": {
+            "IE": "Lỗi cấp nước. Kiểm tra áp lực nước.",
+            "OE": "Lỗi thoát nước. Kiểm tra bơm hoặc ống tắc.",
+            "DE": "Lỗi cửa mở. Kiểm tra công tắc cửa.",
+            "PE": "Lỗi cảm biến áp lực phao nước.",
+            "AE": "Lỗi rò rỉ nước bên trong máy."
+        }
+    },
+    "Bếp Từ": {
+        "Sunhouse": {"E0": "Không nhận nồi.", "E1": "Quá nhiệt cảm biến.", "E2": "Điện áp quá cao."},
+        "Kangaroo": {"E1": "Hỏng cảm biến mặt kính.", "E2": "Quá nhiệt IGBT. Kiểm tra quạt."}
     }
 }
 
-# --- XU LY NOI DUNG ---
-if menu == "🔍 Tra ma loi":
-    st.header("🔍 TRA CUU MA LOI CHUYEN NGHIEP")
-    
-    # BƯỚC 1: CHỌN THIẾT BỊ
-    loai = st.selectbox("👉 1. Chon loai thiet bi:", list(DATA_LOI.keys()))
-    
-    # BƯỚC 2: CHỌN HÃNG
-    hang = st.selectbox(f"👉 2. Chon hang {loai}:", list(DATA_LOI[loai].keys()))
-    
-    # BƯỚC 3: NHẬP MÃ LỖI
-    ma_loi = st.text_input("👉 3. Nhap ma loi (Vidu: H11, U4, 15H...):").upper().strip()
-    
-    if st.button("XEM KET QUA"):
-        if ma_loi in DATA_LOI[loai][hang]:
-            st.success(f"🛠 **Giai phap cho {hang} {ma_loi}:**\n\n{DATA_LOI[loai][hang][ma_loi]}")
-        else:
-            st.warning(f"Ma loi '{ma_loi}' chua co trong kho {hang}. Duy hay lien he Admin!")
-
-elif menu == "💳 Gia han":
-    st.header("💳 GIA HAN DICH VU")
-    st.image("https://img.vietqr.io/image/ICB-104881077679-compact2.png?amount=500000&addInfo=GIAHAN")
-    st.info("Noi dung: GIA HAN BA DUY")
-
-# --- DONG CUOI CUNG CHOT FILE ---
+# --- GIAO DIỆN CHÍNH (NÚT BẤM TO) ---
 st.divider()
-st.caption("He thong ky thuat Ba Duy v27.0 - Chot file an toan")
+c1, c2 = st.columns(2)
+with c1:
+    if st.button("🔍 TRA MÃ LỖI", use_container_width=True): st.session_state.page = "TRA_MA"
+with c2:
+    if st.button("🧠 CHẨN ĐOÁN AI", use_container_width=True): st.session_state.page = "AI"
+
+c3, c4 = st.columns(2)
+with c3:
+    if st.button("📚 SƠ ĐỒ PDF", use_container_width=True): st.session_state.page = "PDF"
+with c4:
+    if st.button("💳 GIA HẠN", use_container_width=True): st.session_state.page = "GIA_HAN"
+
+# --- XỬ LÝ TRANG ---
+if st.session_state.page == "TRA_MA":
+    st.header("🔍 TRA CỨU CHI TIẾT")
+    loai = st.selectbox("Chọn thiết bị:", list(DATA_TECH.keys()))
+    hang = st.selectbox(f"Chọn hãng {loai}:", list(DATA_TECH[loai].keys()))
+    ma = st.text_input("Nhập mã lỗi:").upper().strip()
+    if st.button("TÌM KIẾM", use_container_width=True):
+        if ma in DATA_TECH[loai][hang]:
+            st.success(f"🛠 **{hang} {ma}:** {DATA_TECH[loai][hang][ma]}")
+        else: st.warning("Mã này chưa cập nhật.")
+
+elif st.session_state.page == "AI":
+    st.header("🧠 CHẨN ĐOÁN AI CHUYÊN NGHIỆP")
+    st.info("Nhập biểu hiện bệnh để AI phân tích nguyên nhân tiềm ẩn.")
+    loai_ai = st.selectbox("Máy đang hỏng:", list(DATA_TECH.keys()))
+    benh = st.text_area("Mô tả biểu hiện (Vd: Quạt chạy nhưng block không rung, có mùi khét...):")
+    
+    if st.button("PHÂN TÍCH CHUYÊN SÂU", use_container_width=True):
+        # MÔ PHỎNG LOGIC CHẨN ĐOÁN CHUYÊN NGHIỆP
+        if "nguồn" in benh.lower():
+            st.warning("🤖 AI Gợi ý: Kiểm tra cầu chì, biến áp xung và IC nguồn (thường hỏng TNY264/VIPER12A).")
+        elif "nóng" in benh.lower() or "lạnh" in benh.lower():
+            st.warning("🤖 AI Gợi ý: Kiểm tra tụ ngậm, block hoặc cảm biến nhiệt độ (Sensor).")
+        else:
+            st.info("🤖 AI Gợi ý: Cần kiểm tra bo mạch điều khiển trung tâm và các rơ-le lệnh.")
+
+elif st.session_state.page == "GIA_HAN":
+    st.subheader("💳 GIA HẠN BẢN QUYỀN")
+    st.image("https://img.vietqr.io/image/ICB-104881077679-compact2.png?amount=500000&addInfo=GIAHAN")
+
+# NÚT THOÁT
+st.divider()
+if st.button("🚪 Đăng xuất", use_container_width=True):
+    st.session_state.auth = None
+    st.rerun()
