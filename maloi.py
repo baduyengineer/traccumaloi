@@ -2,7 +2,7 @@
 import streamlit as st
 
 # 1. CẤU HÌNH GIAO DIỆN CHUẨN MOBILE
-st.set_page_config(page_title="BA DUY TECH PRO v33", layout="centered")
+st.set_page_config(page_title="TRỢ LÝ KỸ THUẬT BA DUY TECH PRO v33", layout="centered")
 
 # KHỞI TẠO DỮ LIỆU HỆ THỐNG
 if 'auth' not in st.session_state: st.session_state['auth'] = None
@@ -115,3 +115,4 @@ if st.button("🚪 Đăng xuất", use_container_width=True):
     st.rerun()
 
 st.caption("BA DUY TECH v33.0 - Đã khôi phục đầy đủ tính năng")
+
