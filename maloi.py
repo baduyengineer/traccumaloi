@@ -1,16 +1,17 @@
+
 import streamlit as st
 
-# 1. CẤU HÌNH GIAO DIỆN
-st.set_page_config(page_title="BA DUY TECH PRO v32", layout="centered")
+# 1. CẤU HÌNH GIAO DIỆN CHUẨN MOBILE
+st.set_page_config(page_title="BA DUY TECH PRO v33", layout="centered")
 
-# KHỞI TẠO DỮ LIỆU
+# KHỞI TẠO DỮ LIỆU HỆ THỐNG
 if 'auth' not in st.session_state: st.session_state['auth'] = None
-if 'page' not in st.session_state: st.session_state['page'] = "HOME"
+if 'page' not in st.session_state: st.session_state['page'] = "🏠 Trang chủ"
 if 'user_db' not in st.session_state: st.session_state['user_db'] = []
 
 USERS = {"PRO-DUY-2025": "Kỹ sư Ba Duy", "DUY-FREE": "Khách dùng thử"}
 
-# --- ĐĂNG NHẬP ---
+# --- MÀN HÌNH ĐĂNG NHẬP ---
 if st.session_state['auth'] is None:
     st.title("🔐 HỆ THỐNG BA DUY PRO")
     ma = st.text_input("Mã kích hoạt:", type="password").strip()
@@ -21,7 +22,7 @@ if st.session_state['auth'] is None:
         else: st.error("Mã không đúng!")
     st.stop()
 
-# --- KHO DỮ LIỆU CHUYÊN SÂU ---
+# --- KHO DỮ LIỆU TỔNG HỢP ---
 DATA_PRO = {
     "Điều Hòa": {
         "Panasonic": {
@@ -44,14 +45,10 @@ DATA_PRO = {
             "IE": "Không vào nước. \nHD: Kiểm tra van cấp và bo mạch điều khiển.",
             "OE": "Không thoát nước. \nHD: Kiểm tra bơm xả và ống thoát."
         }
-    },
-    "Bếp Từ": {
-        "Sunhouse": {"E0": "Không nhận nồi. \nHD: Kiểm tra tụ 5uF, điện trở hồi tiếp.", "E1": "Quá nhiệt cảm biến."},
-        "Kangaroo": {"E1": "Lỗi cảm biến kính.", "E2": "Quá nhiệt IGBT. Kiểm tra quạt."}
     }
 }
 
-# --- MENU CHÍNH ---
+# --- MENU CHÍNH (ĐÃ KHÔI PHỤC NÚT GIA HẠN) ---
 st.success(f"👤 Chào {st.session_state['auth']}")
 c1, c2 = st.columns(2)
 with c1:
@@ -63,9 +60,7 @@ c3, c4 = st.columns(2)
 with c3:
     if st.button("➕ THÊM MÃ MỚI", use_container_width=True): st.session_state.page = "THEM"
 with c4:
-    if st.button("🚪 ĐĂNG XUẤT", use_container_width=True):
-        st.session_state.auth = None
-        st.rerun()
+    if st.button("💳 GIA HẠN", use_container_width=True): st.session_state.page = "GIA"
 
 # --- XỬ LÝ CHỨC NĂNG ---
 if st.session_state.page == "TRA":
@@ -78,7 +73,6 @@ if st.session_state.page == "TRA":
         if ma in DATA_PRO[loai][hang]:
             st.info(f"🛠 **Giải pháp:**\n\n{DATA_PRO[loai][hang][ma]}")
         else:
-            # Tra cứu trong kho thợ tự thêm
             found = [x for x in st.session_state.user_db if x['ma']==ma and x['hang']==hang]
             if found: st.success(f"📌 **Kinh nghiệm cá nhân:**\n\n{found[0]['hd']}")
             else: st.warning("Mã này chưa có. Hãy dùng mục 'Thêm mã mới'!")
@@ -86,7 +80,6 @@ if st.session_state.page == "TRA":
 elif st.session_state.page == "AI":
     st.divider()
     st.subheader("🧠 CHẨN ĐOÁN AI THEO HÃNG")
-    # Khắc phục lỗi thiếu phân loại hãng ở ảnh image_e19055
     loai_ai = st.selectbox("Loại máy:", list(DATA_PRO.keys()), key="ai_loai")
     hang_ai = st.selectbox(f"Hãng sản xuất:", list(DATA_PRO[loai_ai].keys()), key="ai_hang")
     benh = st.text_area("Mô tả biểu hiện (Vd: Mất nguồn, quạt không quay...):")
@@ -100,14 +93,25 @@ elif st.session_state.page == "AI":
 
 elif st.session_state.page == "THEM":
     st.divider()
-    st.subheader("➕ LƯU KINH NGHIỆM SỬA CHỮA")
+    st.subheader("➕ LƯU KINH NGHIỆM")
     t_loai = st.selectbox("Loại máy:", ["Điều Hòa", "Máy Giặt", "Bếp Từ"])
     t_hang = st.text_input("Hãng máy:")
     t_ma = st.text_input("Mã lỗi:").upper().strip()
     t_hd = st.text_area("Hướng dẫn sửa (Kinh nghiệm thợ):")
     if st.button("LƯU VÀO KHO", use_container_width=True):
         st.session_state.user_db.append({'loai': t_loai, 'hang': t_hang, 'ma': t_ma, 'hd': t_hd})
-        st.success("Đã lưu! Duy có thể tra lại mã này ngay lập tức.")
+        st.success("Đã lưu thành công!")
 
+elif st.session_state.page == "GIA":
+    st.divider()
+    st.subheader("💳 GIA HẠN DỊCH VỤ")
+    st.image("https://img.vietqr.io/image/ICB-104881077679-compact2.png?amount=500000&addInfo=GIAHAN")
+    st.info("Quét mã để gia hạn thêm 1 năm bản quyền PRO.")
+
+# NÚT ĐĂNG XUẤT
 st.divider()
-st.caption("BA DUY TECH v32.0 - Hệ thống chẩn đoán chuyên nghiệp")
+if st.button("🚪 Đăng xuất", use_container_width=True):
+    st.session_state.auth = None
+    st.rerun()
+
+st.caption("BA DUY TECH v33.0 - Đã khôi phục đầy đủ tính năng")
