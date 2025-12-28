@@ -82,6 +82,6 @@ elif menu == "💳 Gia hạn":
     st.image("https://img.vietqr.io/image/ICB-104881077679-compact2.png?amount=500000&addInfo=GIAHAN")
     st.success("Quét mã để gia hạn tự động 12 tháng.")
 
-# --- DÒNG CUỐI CÙNG CHỐT FILE ---
 st.divider()
 st.caption("Hệ thống kỹ thuật Ba Duy v23.0 - Cập nhật 2025")
+
