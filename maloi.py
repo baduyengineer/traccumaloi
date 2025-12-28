@@ -105,3 +105,4 @@ if st.button("🚪 Thoát hệ thống", use_container_width=True):
     st.rerun()
 
 st.caption("BA DUY TECH v30.0 - Nền tảng kỹ thuật thông minh")
+
