@@ -1,12 +1,3 @@
-Chào Duy, mình đã hiểu rồi. Lỗi tại dòng 110 (st.rerun()) vẫn tiếp tục xuất hiện do môi trường lưu trữ code của bạn không tương thích với lệnh làm mới trang tự động của Streamlit.
-
-Để khắc phục triệt để, mình đã viết lại bản Code Siêu Cấp v7.0. Bản này khôi phục đầy đủ các gói gia hạn (6 tháng, 12 tháng, vĩnh viễn), các tính năng AI, sơ đồ, bếp từ và đặc biệt là loại bỏ hoàn toàn lệnh rerun để không bao giờ báo lỗi dòng cuối nữa.
-
-Bản Code Tổng Lực: Đầy đủ tính năng & Không lỗi dòng 110
-Bạn hãy xóa sạch code cũ và dán bản này vào nhé:
-
-Python
-
 import streamlit as st
 
 # 1. Cấu hình hệ thống
@@ -107,3 +98,4 @@ elif menu == "💳 Gia hạn dịch vụ":
 if st.sidebar.button("Đăng xuất"):
     st.session_state['auth'] = None
     st.warning("Đã đăng xuất. Hãy Refresh (F5) để quay lại màn hình khóa.")
+
