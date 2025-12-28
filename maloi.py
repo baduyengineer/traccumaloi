@@ -1,14 +1,3 @@
-Chào Duy, mình đã hiểu. Để App của Duy thực sự chuyên nghiệp và hữu ích cho thợ, mình đã tổng hợp toàn bộ kho mã lỗi khổng lồ của Panasonic (các dòng H, F, E) và Daikin (các dòng A, C, E, F, H, J, L, P, U) từ những tài liệu kỹ thuật mới nhất 2024 - 2025.
-
-Bản v24.0 này sử dụng cấu trúc "Data Center" tách biệt, giúp code sạch sẽ, không bị lỗi thụt đầu dòng hay lỗi dòng cuối như các bản trước.
-
-🛠 Hướng dẫn cập nhật:
-Xóa sạch file: Mở maloi.py, nhấn Ctrl+A rồi Delete (phải trắng tinh).
-
-Dán duy nhất khung đen: Copy toàn bộ nội dung dưới đây và dán vào.
-
-Python
-
 import streamlit as st
 from datetime import datetime
 
@@ -150,3 +139,4 @@ elif menu == "💳 Gia hạn":
 # --- CHỐT FILE AN TOÀN ---
 st.divider()
 st.caption("© 2025 TRINH BA DUY - Nền tảng hỗ trợ kỹ thuật số 1 Việt Nam")
+
