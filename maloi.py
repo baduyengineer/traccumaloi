@@ -1,7 +1,7 @@
 import streamlit as st
 
 # 1. CẤU HÌNH HỆ THỐNG & UI MÀU SẮC NỔI BẬT
-st.set_page_config(page_title="BA DUY TECH PRO 2026", layout="centered")
+st.set_page_config(page_title="BA DUY PRO 2026", layout="centered")
 
 st.markdown("""
     <style>
@@ -45,7 +45,7 @@ USERS = {
 
 # --- ĐĂNG NHẬP ---
 if st.session_state['auth'] is None:
-    st.markdown('<div class="header-box"><h1>🔐 HỆ THỐNG KỸ THUẬT BA DUY</h1></div>', unsafe_allow_html=True)
+    st.markdown('<div class="header-box"><h1>🔐 HỆ THỐNG tra cứu KỸ THUẬT BA DUY</h1></div>', unsafe_allow_html=True)
     ma = st.text_input("NHẬP MÃ KÍCH HOẠT:", type="password").strip()
     if st.button("ĐĂNG NHẬP HỆ THỐNG", use_container_width=True):
         if ma in USERS:
@@ -171,3 +171,4 @@ if st.button("🚪 ĐĂNG XUẤT", use_container_width=True):
     st.rerun()
 
 st.caption("BA DUY TECH v35.5 - DỮ LIỆU ĐÃ CẬP NHẬT ĐẦY ĐỦ")
+
