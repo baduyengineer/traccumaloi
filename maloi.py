@@ -37,7 +37,7 @@ USERS = {
 
 # --- MÀN HÌNH ĐĂNG NHẬP ---
 if st.session_state['auth'] is None:
-    st.title("🔐 TRỢ LÝ KỸ THUẬT BA DUY")
+    st.title("🔐 TRỢ LÝ TRA CỨU KỸ THUẬT BA DUY")
     ma = st.text_input("Nhập mã kích hoạt:", type="password").strip()
     if st.button("XÁC NHẬN VÀO HỆ THỐNG", use_container_width=True):
         if ma in USERS:
@@ -151,4 +151,5 @@ if st.button("🚪 Đăng xuất hệ thống", use_container_width=True):
     st.rerun()
 
 st.caption("BA DUY TECH v35.2 - TRA CỨU KỸ THUẬT CHUYÊN NGHIỆP")
+
 
