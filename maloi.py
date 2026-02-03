@@ -65,21 +65,59 @@ if st.session_state['auth'] is None:
 
 # --- DỮ LIỆU TỔNG HỢP SIÊU KHỦNG (ĐÃ BỔ SUNG BẾP TỪ) ---
 DATA_FULL = {
-    "Điều Hòa": {
-        "Panasonic": {
-            "28H": "Lỗi cảm biến giàn nóng (H28). \n🛠 HD: Kiểm tra jack cắm; đo điện trở (khoảng 3KΩ ở 30°C); hơ nóng cảm biến xem điện trở giảm không.",
-            "H11": "Lỗi truyền tín hiệu giữa khối trong và ngoài nhà. \n🛠 HD: Kiểm tra dây số 3.",
-            "F91": "Rò rỉ môi chất lạnh, chu kỳ làm lạnh kém.",
-            "F97": "Nhiệt độ máy nén cao bất thường, máy nén tự tắt."
-        },
-        "Daikin": {
-            "U0": "Thiếu môi chất lạnh (Thiếu Gas).",
-            "U4": "Lỗi truyền tín hiệu giữa dàn nóng và dàn lạnh. \n🛠 HD: Kiểm tra dây F1-F2, bo mạch nóng/lạnh."
-        },
-        "LG Inverter": {
-            "CH05": "Lỗi kết nối giàn nóng và giàn lạnh. \n🛠 HD: Kiểm tra dây truyền tín hiệu.",
-            "CH21": "Lỗi IC Công Suất (IPM). \n🛠 HD: Kiểm tra Block hoặc thay Board."
-        }
+    "Điều Hòa LG Inverter": {
+        "CH01": "Hỏng cảm biến giàn lạnh ",
+        "CH02": "Hỏng cảm biến giàn lạnh ",
+        "CH05": "Lỗi kết nối giàn nóng và giàn lạnh inverter ",
+        "CH06": "Hỏng cảm biến đường đi của giàn nóng inverter ",
+        "CH09": "Lỗi chức năng board mạch giàn nóng inverter ",
+        "CH10": "Quạt giàn lạnh inverter ",
+        "CH21": "Lỗi IC Công Suất ",
+        "CH22": "Cao dòng, cao điện áp trên cuộn seo, board ",
+        "CH23": "Điện áp quá thấp ",
+        "CH26": "Hỏng máy nén inverter ",
+        "CH27": "Lỗi quá tải dàn nóng, board Inverter ",
+        "CH29": "Pha máy nén inverter ",
+        "CH32": "Nhiệt độ cao đường đẩy máy nén inverter ",
+        "CH33": "Quá tải máy nén inverter ",
+        "CH41": "Cảm biến máy nén 200k inverter ",
+        "CH44": "Hỏng cảm biến gió giàn nóng 10k inverter ",
+        "CH45": "Hỏng cảm biến gió giàn nóng 5k inverter ",
+        "CH46": "Cảm biến đường về của máy nén inverter ",
+        "CH47": "Máy nén không hoạt động cảm biến 200k ",
+        "CH53": "Liên lạc giữa giàn nóng và giàn lạnh ",
+        "CH60": "IC cắm trên mạch giàn nóng inverter ",
+        "CH61": "Giàn nóng không giải nhiệt được ",
+        "CH62": "Nhiệt độ cao ic nguồn đuôi nóng inverter ",
+        "CH65": "Hỏng ic nguồn đuôi nóng inverter "
+    },
+    "Điều Hòa Daikin": {
+        "C1": "Lỗi bo mạch dàn lạnh hoặc bo mạch quạt ",
+        "C3": "Lỗi hệ thống cảm biến nước xả (dàn lạnh) ",
+        "C4": "Lỗi nhiệt điện trở đường ống lỏng dàn lạnh hoặc lỏng kết nối ",
+        "C5": "Lỗi nhiệt điện trở đường ống hơi dàn lạnh hoặc lỏng kết nối ",
+        "C9": "Lỗi nhiệt điện trở gió hồi dàn lạnh hoặc lỏng kết nối ",
+        "E0": "Thiết bị bảo vệ dàn nóng tác động (Công tắc cao áp, Moto quạt/máy nén quá tải...) ",
+        "E1": "Lỗi bo mạch dàn nóng ",
+        "E7": "Lỗi moto quạt dàn nóng hoặc bo mạch moto quạt ",
+        "F3": "Nhiệt độ ống đẩy dàn nóng bất thường, thiếu môi chất lạnh hoặc lỗi nhiệt điện trở ống đẩy ",
+        "U0": "Thiếu môi chất lạnh, hư van tiết lưu điện tử hoặc ống dẫn môi chất lạnh bị nghẹt ",
+        "U4": "Lỗi truyền tín hiệu giữa dàn nóng và dàn lạnh hoặc lỏng kết nối F1/F2 "
+    },
+    "Điều Hòa Panasonic": {
+        "11H": "Lỗi đường dữ liệu giữa khối trong và ngoài ",
+        "14H": "Lỗi cảm biến nhiệt độ phòng ",
+        "16H": "Dòng điện tải máy nén quá thấp ",
+        "19H": "Lỗi quạt dàn lạnh ",
+        "28H": "Lỗi cảm biến giàn nóng. \n🛠 XỬ LÝ: Kiểm tra jack cắm; Đo điện trở (Khoảng 3KΩ ở 30°C); Hơ nóng cảm biến xem trị số có giảm không ",
+        "H11": "Lỗi truyền tín hiệu giữa khối trong và ngoài nhà ",
+        "H97": "Động cơ moto quạt khối ngoài trời bị khoá, kẹt ",
+        "F91": "Rò rỉ môi chất lạnh, chu kỳ làm lạnh kém ",
+        "F97": "Nhiệt độ máy nén cao bất thường, máy nén tự tắt ",
+        "28H": "Lỗi cảm biến giàn nóng (H28). \n🛠 HD: Kiểm tra jack cắm; đo điện trở (khoảng 3KΩ ở 30°C); hơ nóng cảm biến xem điện trở giảm không.",
+        "H11": "Lỗi truyền tín hiệu giữa khối trong và ngoài nhà. \n🛠 HD: Kiểm tra dây số 3.",
+        "F91": "Rò rỉ môi chất lạnh, chu kỳ làm lạnh kém.",
+        "F97": "Nhiệt độ máy nén cao bất thường, máy nén tự tắt."
     },
     "Bếp Từ": {
         "Midea/Kangaroo": {
@@ -177,3 +215,4 @@ if st.button("🚪 Đăng xuất", use_container_width=True):
     st.rerun()
 
 st.caption("BA DUY TECH v40.0 - CHUYÊN GIA SỬA CHỮA ĐIỆN LẠNH & NHÀ BẾP")
+
