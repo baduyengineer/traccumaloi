@@ -100,6 +100,24 @@ DATA_FULL = {
         "Electrolux": {
             "E10": "Lỗi cấp nước. HD: Vệ sinh van cấp.",
             "E20": "Lỗi thoát nước. HD: Kiểm tra bơm xả."
+            "Bếp Từ": {
+        "Midea/Kangaroo": {
+            "E0": "Chưa có nồi hoặc nồi không phù hợp. \n🛠 HD: Đổi nồi có đáy nhiễm từ (hít nam châm).",
+            "E1": "Quá nhiệt hoặc bếp quá tải. \n🛠 HD: Kiểm tra quạt gió, để bếp nghỉ 10 phút.",
+            "E2": "Cảm biến nhiệt độ mặt kính lỗi. \n🛠 HD: Kiểm tra Sensor nhiệt trung tâm mặt kính.",
+            "E3": "Điện áp quá cao (>250V). \n🛠 HD: Kiểm tra nguồn điện lưới.",
+            "E4": "Điện áp quá thấp (<170V). \n🛠 HD: Sử dụng ổn áp.",
+            "E6": "Lỗi cảm biến IGBT (Quá nhiệt công suất). \n🛠 HD: Thay keo tản nhiệt hoặc kiểm tra quạt."
+        },
+        "Sunhouse/Sanaky": {
+            "E1": "Điện áp yếu. \n🛠 HD: Kiểm tra nguồn cấp.",
+            "E2": "Nhiệt độ bếp quá cao. \n🛠 HD: Vệ sinh quạt, lỗ thông gió.",
+            "E5": "Hở mạch cảm biến nhiệt mặt bếp. \n🛠 HD: Thay Sensor nhiệt.",
+            "E0": "Lỗi nhận nồi. \n🛠 HD: Kiểm tra tụ 5uF hoặc điện trở hồi tiếp."
+        },
+        "Bosch/Hãng Âu": {
+            "E01/E02": "Lỗi module công suất. \n🛠 HD: Kiểm tra IGBT và cầu chỉnh lưu.",
+            "F0": "Lỗi truyền thông. \n🛠 HD: Kiểm tra cáp nối giữa các board mạch."
         }
     }
 }
@@ -172,3 +190,4 @@ if st.button("🚪 Đăng xuất", use_container_width=True):
     st.rerun()
 
 st.caption("BA DUY TECH v35.8 - NỀN TẢNG KỸ THUẬT SỐ 1")
+
