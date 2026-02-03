@@ -119,24 +119,36 @@ DATA_FULL = {
         "F91": "Rò rỉ môi chất lạnh, chu kỳ làm lạnh kém.",
         "F97": "Nhiệt độ máy nén cao bất thường, máy nén tự tắt."
     },
-    "Bếp Từ": {
-        "Midea/Kangaroo": {
-            "E0": "Chưa có nồi hoặc nồi không phù hợp. \n🛠 HD: Đổi nồi có đáy nhiễm từ (hít nam châm).",
-            "E1": "Quá nhiệt hoặc bếp quá tải. \n🛠 HD: Kiểm tra quạt gió, để bếp nghỉ 10 phút.",
-            "E2": "Cảm biến nhiệt độ mặt kính lỗi. \n🛠 HD: Kiểm tra Sensor nhiệt trung tâm mặt kính.",
-            "E3": "Điện áp quá cao (>250V). \n🛠 HD: Kiểm tra nguồn điện lưới.",
-            "E4": "Điện áp quá thấp (<170V). \n🛠 HD: Sử dụng ổn áp.",
-            "E6": "Lỗi cảm biến IGBT (Quá nhiệt công suất). \n🛠 HD: Thay keo tản nhiệt hoặc kiểm tra quạt."
+   "Bếp Từ": {
+        "Midea": {
+            "E0": "Không nhận nồi. 🛠 HD: Kiểm tra phần điện trở nhận nồi.",
+            "E1": "Bếp quá nhiệt. 🛠 HD: Kiểm tra quạt, thông gió, cảm biến nhiệt",
+            "E2": "Cảm biến mặt kính lỗi.",
+            "E3": "Quá áp (>250V).",
+            "E4": "Áp thấp (<170V).",
+            "E6": "Lỗi cảm biến IGBT."
         },
-        "Sunhouse/Sanaky": {
-            "E1": "Điện áp yếu. \n🛠 HD: Kiểm tra nguồn cấp.",
-            "E2": "Nhiệt độ bếp quá cao. \n🛠 HD: Vệ sinh quạt, lỗ thông gió.",
-            "E5": "Hở mạch cảm biến nhiệt mặt bếp. \n🛠 HD: Thay Sensor nhiệt.",
-            "E0": "Lỗi nhận nồi. \n🛠 HD: Kiểm tra tụ 5uF hoặc điện trở hồi tiếp."
+        "Sunhouse": {
+            "E0": "Lỗi mạch nhận nồi. 🛠 HD: Kiểm tra tụ 5uF, 0.33uF.",
+            "E1": "Điện áp quá yếu.",
+            "E2": "Nhiệt độ nồi quá cao.",
+            "E5": "Cảm biến mặt kính hở mạch."
         },
-        "Bosch/Hãng Âu": {
-            "E01/E02": "Lỗi module công suất. \n🛠 HD: Kiểm tra IGBT và cầu chỉnh lưu.",
-            "F0": "Lỗi truyền thông. \n🛠 HD: Kiểm tra cáp nối giữa các board mạch."
+        "Sanaky": {
+            "E0": "Không có nồi/Sai nồi.",
+            "E1": "Điện áp thấp.",
+            "E2": "Điện áp quá cao.",
+            "E3": "Quá nhiệt mặt kính."
+        },
+        "Kangaroo": {
+            "E0": "Không nhận nồi, kiểm tra mạch nhận nồi",
+            "E1": "Công suất bếp quá nóng, kiểm tra quạt làm mát hoặc mạch bảo vệ quá nhiệt.",
+            "E2": "Lỗi cảm biến nhiệt."
+        },
+        "Bosch": {
+            "E01": "Lỗi module công suất.",
+            "F0": "Lỗi truyền thông board mạch.",
+            "U1": "Điện áp cấp không ổn định."
         }
     },
     "Máy Giặt": {
@@ -215,4 +227,5 @@ if st.button("🚪 Đăng xuất", use_container_width=True):
     st.rerun()
 
 st.caption("BA DUY TECH v40.0 - CHUYÊN GIA SỬA CHỮA ĐIỆN LẠNH & NHÀ BẾP")
+
 
