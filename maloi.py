@@ -1,44 +1,45 @@
 import streamlit as st
 
-# 1. CẤU HÌNH HỆ THỐNG & GIAO DIỆN
-st.set_page_config(page_title="BA DUY TECH PRO 2026", layout="centered")
+# 1. CẤU HÌNH HỆ THỐNG
+st.set_page_config(page_title="TRỢ LÝ KỸ THUẬT TECH PRO 3D", layout="centered")
 
-# CSS tạo nhãn Đỏ, nút Xanh và khung cảnh báo Cam giống ảnh mẫu
+# --- KHÔI PHỤC GIAO DIỆN THEO ẢNH MẪU ---
 st.markdown("""
     <style>
-    /* Nút tìm kiếm xanh chuẩn */
-    div.stButton > button {
-        background-color: #007BFF !important;
-        color: white !important;
+    /* Nút Menu vuông có icon (Giống ảnh image_aa6c7d.png) */
+    .stButton > button {
         border-radius: 8px !important;
         font-weight: bold !important;
-        height: 3em !important;
-        width: 100% !important;
+        color: white !important;
+        background-color: #007BFF !important;
     }
-    /* Nhãn Tool màu đỏ rực rỡ */
+    
+    /* Nhãn chọn màu đỏ bo góc (Giống ảnh image_a98800.png) */
     .stSelectbox label, .stTextInput label {
-        color: #FFFFFF !important;
+        color: white !important;
         background-color: #FF4B4B !important;
         padding: 4px 12px !important;
         border-radius: 6px !important;
         font-weight: bold !important;
-        font-size: 14px !important;
-        margin-bottom: 8px !important;
+        font-size: 13px !important;
         display: inline-block !important;
+        margin-bottom: 8px !important;
     }
-    /* Khung cảnh báo Mã lỗi chuyên sâu */
-    .lock-container {
-        border: 2px dashed #FF8C00;
-        background-color: #FFF9F0;
-        padding: 20px;
-        border-radius: 12px;
-        text-align: center;
-        margin-top: 20px;
+
+    /* Khung cảnh báo Mã lỗi chuyên sâu (Giống ảnh image_aa5d7e.png) */
+    .lock-box {
+        border: 2px dashed #FF8C00 !important;
+        background-color: #FFF9F0 !important;
+        padding: 25px !important;
+        border-radius: 12px !important;
+        text-align: center !important;
+        margin: 20px 0 !important;
     }
     .lock-title {
-        color: #D35400;
-        font-size: 22px;
-        font-weight: bold;
+        color: #D35400 !important;
+        font-size: 24px !important;
+        font-weight: bold !important;
+        margin-bottom: 10px !important;
     }
     </style>
     """, unsafe_allow_html=True)
@@ -47,9 +48,12 @@ st.markdown("""
 if 'auth' not in st.session_state: st.session_state['auth'] = None
 if 'page' not in st.session_state: st.session_state['page'] = "TRA"
 
-# Danh sách mã lỗi cho phép xem Miễn phí (Chỉ để vài mã làm mẫu)
-MA_FREE_LIST = ["E0", "E1", "28H", "CH05","C1"]
-
+USERS = {
+    "PRO-DUY-2025": {"ten": "Kỹ sư Ba Duy", "loai": "Vĩnh viễn"},
+    "DUY-FREE": {"ten": "Khách dùng thử", "loai": "Free"}
+}
+# Danh sách mã được xem miễn phí
+MA_FREE = ["E0", "E1", "28H", "CH05", "U4"]
 # --- DỮ LIỆU TỔNG HỢP SIÊU KHỦNG (ĐÃ BỔ SUNG BẾP TỪ) ---
 DATA_FULL = {
     "Điều Hòa LG Inverter": {
@@ -145,73 +149,62 @@ DATA_FULL = {
         }
     }
 }
-# --- MÀN HÌNH ĐĂNG NHẬP ---
+# --- MÀN HÌNH ĐĂNG NHẬP (Giống ảnh image_f554e0.png) ---
 if st.session_state['auth'] is None:
-    st.title("🔐 HỆ THỐNG TRỢ LÝ KỸ THUẬT TECH 3D")
+    st.markdown("<h2 style='text-align: center;'>🔒 HỆ THỐNG TRỢ LÝ KỸ THUẬT BA DUY</h2>", unsafe_allow_html=True)
     ma = st.text_input("Nhập mã kích hoạt (Vd: DUY-FREE):", type="password")
-    if st.button("XÁC NHẬN VÀO"):
-        if ma == "PRO-DUY-2026":
-            st.session_state['auth'] = {"ten": "Ba Duy", "loai": "Vĩnh viễn"}
-            st.rerun()
-        elif ma == "DUY-FREE":
-            st.session_state['auth'] = {"ten": "Khách dùng thử", "loai": "Free"}
+    if st.button("XÁC NHẬN VÀO", use_container_width=True):
+        if ma in USERS:
+            st.session_state['auth'] = USERS[ma]
             st.rerun()
     st.stop()
 
-# --- GIAO DIỆN CHÍNH ---
-user = st.session_state['auth']
-is_pro = user['loai'] == "Vĩnh viễn"
-
-st.markdown(f"👤 **{user['ten']}** | Gói: **{user['loai']}**")
-
-# Tabs Menu
-c1, c2, c3, c4 = st.columns(4)
-with c1: 
-    if st.button("🔍 TRA MÃ"): st.session_state.page = "TRA"
-with c2: 
-    if st.button("🧠 AI"): st.session_state.page = "AI"
-with c3: 
-    if st.button("➕ THÊM"): st.session_state.page = "THEM"
-with c4: 
-    if st.button("💳 GÓI"): st.session_state.page = "GIA"
+# --- GIAO DIỆN CHÍNH (Giống ảnh image_aa6c7d.png) ---
+# Menu 4 nút có icon
+col1, col2, col3, col4 = st.columns(4)
+with col1: 
+    if st.button("🔍 TRA MÃ", use_container_width=True): st.session_state.page = "TRA"
+with col2: 
+    if st.button("🧠 AI", use_container_width=True): st.session_state.page = "AI"
+with col3: 
+    if st.button("➕ THÊM", use_container_width=True): st.session_state.page = "THEM"
+with col4: 
+    if st.button("💳 GÓI", use_container_width=True): st.session_state.page = "GIA"
 
 # --- TRANG TRA CỨU & KHẮC PHỤC ---
 if st.session_state.page == "TRA":
     st.markdown("### 🔍 TRA CỨU & KHẮC PHỤC")
     
-    loai = st.selectbox("CHỌN THIẾT BỊ:", list(DATA_FULL.keys()), key="sel_loai")
-    hang = st.selectbox(f"CHỌN HÃNG {loai}:", list(DATA_FULL[loai].keys()), key="sel_hang")
-    ma_nhap = st.text_input("NHẬP MÃ LỖI:", placeholder="H11, CH05, E1...").upper().strip()
+    loai_may = st.selectbox("CHỌN THIẾT BỊ:", list(DATA_FULL.keys()), key="l")
+    hang_may = st.selectbox(f"CHỌN HÃNG {loai_may}:", list(DATA_FULL[loai_may].keys()), key="h")
+    ma_loi = st.text_input("NHẬP MÃ LỖI:", key="m").upper().strip()
     
-    if st.button("TÌM KIẾM NGAY"):
-        if ma_nhap in DATA_FULL[loai][hang]:
-            # LOGIC PHÂN QUYỀN
-            if is_pro or (ma_nhap in MA_FREE_LIST):
-                st.info(f"⚙️ **{hang} {ma_nhap}:**\n\n{DATA_FULL[loai][hang][ma_nhap]}")
+    if st.button("TÌM KIẾM NGAY", use_container_width=True):
+        if ma_loi in DATA_FULL[loai_may][hang_may]:
+            if st.session_state.auth['loai'] == "Vĩnh viễn" or (ma_loi in MA_FREE):
+                st.success(f"✅ **{hang_may} {ma_loi}:** {DATA_FULL[loai_may][hang_may][ma_loi]}")
             else:
-                # HIỂN THỊ CÂU NHẮC NHỞ GIỐNG ẢNH MẪU
+                # Hiển thị lời nhắc nâng cấp (Giống ảnh image_aa5d7e.png)
                 st.markdown(f"""
-                <div class="lock-container">
+                <div class="lock-box">
                     <div class="lock-title">🔒 MÃ LỖI CHUYÊN SÂU</div>
-                    <p style="color: #666; margin-top:10px;">
-                        Bạn cần mua gói nâng cấp để xem được nhiều mã lỗi hơn và hướng dẫn sửa chữa chi tiết.
-                    </p>
+                    <p>Bạn cần mua gói nâng cấp để xem được nhiều mã lỗi hơn và hướng dẫn sửa chữa chi tiết.</p>
                 </div>
                 """, unsafe_allow_html=True)
-                # Chèn mã QR
-                st.image("https://img.vietqr.io/image/ICB-104881077679-compact2.png?amount=299000&addInfo=NANG_CAP_PRO", 
-                         caption="Quét mã QR để nâng cấp gói PRO ngay")
+                st.image("https://img.vietqr.io/image/ICB-104881077679-compact2.png?amount=299000&addInfo=NANG_CAP_PRO")
+        elif ma_loi == "":
+            pass
         else:
             st.error("Mã lỗi này chưa được cập nhật trong hệ thống.")
 
 elif st.session_state.page == "GIA":
-    st.subheader("💳 QUẢN LÝ GÓI & GIA HẠN")
-    st.image("https://img.vietqr.io/image/ICB-104881077679-compact2.png?amount=299000&addInfo=GIAHAN")
+    st.markdown("### 💳 GIA HẠN GÓI")
+    st.image("https://img.vietqr.io/image/ICB-104881077679-compact2.png?amount=299000&addInfo=GIA_HAN")
 
-# Nút Đăng xuất
-st.divider()
+# --- NÚT ĐĂNG XUẤT (Giống ảnh image_f4ff60.png) ---
+st.markdown("---")
 if st.button("🚪 ĐĂNG XUẤT", use_container_width=True):
     st.session_state.auth = None
     st.rerun()
 
-st.caption("BA DUY TECH v55.0 - DỮ LIỆU ĐÃ CẬP NHẬT LIÊN TỤC")
+st.caption("BA DUY TECH v35.5 - DỮ LIỆU ĐÃ CẬP NHẬT LIÊN TỤC")
