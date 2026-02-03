@@ -3,7 +3,7 @@ import streamlit as st
 # 1. CẤU HÌNH HỆ THỐNG & GIAO DIỆN NỔI BẬT
 st.set_page_config(page_title="BA DUY TECH PRO 2026", layout="centered")
 
-# CSS làm nổi bật các thanh Tool và Nút bấm
+# CSS làm rực màu các thanh Tool và Nút bấm
 st.markdown("""
     <style>
     /* Làm nổi bật các nút Menu chính */
@@ -14,16 +14,22 @@ st.markdown("""
         border: 2px solid #0056b3 !important;
         font-weight: bold !important;
         height: 3.5em !important;
+        box-shadow: 2px 2px 5px rgba(0,0,0,0.1);
     }
     div.stButton > button:hover {
         background-color: #FF8C00 !important;
         border: 2px solid #e67e00 !important;
     }
-    /* Làm rực màu thanh chọn Selectbox và Input */
-    .stSelectbox label, .stTextInput label {
-        color: #FF4B4B !important;
+    /* Làm rực màu thanh chọn Selectbox và Input để dễ nhận diện */
+    .stSelectbox label, .stTextInput label, .stTextArea label {
+        color: #FFFFFF !important;
+        background-color: #FF4B4B !important; /* Màu nền đỏ cho nhãn Tool */
+        padding: 5px 15px !important;
+        border-radius: 8px !important;
         font-weight: bold !important;
-        font-size: 18px !important;
+        font-size: 16px !important;
+        width: fit-content !important;
+        margin-bottom: 10px !important;
     }
     /* Làm nổi bật khung thông tin người dùng */
     .user-info {
@@ -57,50 +63,25 @@ if st.session_state['auth'] is None:
         else: st.error("Mã không đúng! Vui lòng liên hệ Admin.")
     st.stop()
 
-# --- DỮ LIỆU TỔNG HỢP SIÊU KHỦNG (NẠP 100% TỪ FILE) ---
+# --- DỮ LIỆU TỔNG HỢP SIÊU KHỦNG (ĐÃ BỔ SUNG BẾP TỪ) ---
 DATA_FULL = {
     "Điều Hòa": {
         "Panasonic": {
-            "00H": "Bình thường, không bị lỗi",
-            "11H": "Lỗi đường dữ liệu giữa khối trong và ngoài.",
-            "12H": "Khối trong và ngoài khác công suất.",
-            "14H": "Lỗi cảm biến nhiệt độ phòng.",
-            "15H": "Lỗi cảm biến nhiệt độ máy nén.",
-            "16H": "Dòng điện tải máy nén quá thấp.",
-            "19H": "Lỗi quạt dàn lạnh.",
-            "23H": "Lỗi cảm biến nhiệt độ dàn lạnh.",
-            "25H": "Mạch E-on lỗi.",
-            "27H": "Lỗi cảm biến nhiệt độ ngoài trời.",
-            "28H": "Lỗi cảm biến giàn nóng (H28). \n🛠 HD: Kiểm tra jack cắm; đo điện trở (khoảng 3KΩ ở 30°C); hơ nóng cảm biến xem điện trở có giảm không; nếu tốt thì hỏng board mạch cục nóng.",
-            "30H": "Lỗi cảm biến nhiệt độ ống ra của máy nén.",
+            "28H": "Lỗi cảm biến giàn nóng (H28). \n🛠 HD: Kiểm tra jack cắm; đo điện trở (khoảng 3KΩ ở 30°C); hơ nóng cảm biến xem điện trở giảm không.",
             "H11": "Lỗi truyền tín hiệu giữa khối trong và ngoài nhà. \n🛠 HD: Kiểm tra dây số 3.",
-            "H14": "Lỗi cảm biến nhiệt độ hút của khối trong nhà.",
-            "H19": "Động cơ moto quạt khối trong nhà bị kẹt, hỏng động cơ.",
-            "H97": "Động cơ moto quạt khối ngoài trời bị khoá, kẹt.",
             "F91": "Rò rỉ môi chất lạnh, chu kỳ làm lạnh kém.",
             "F97": "Nhiệt độ máy nén cao bất thường, máy nén tự tắt."
         },
         "Daikin": {
-            "C1": "Lỗi bo mạch dàn lạnh hoặc bo mạch quạt.",
-            "C4": "Lỗi nhiệt điện trở đường ống lỏng dàn lạnh.",
-            "E0": "Thiết bị bảo vệ dàn nóng tác động (Cao áp, quá tải).",
-            "E7": "Lỗi moto quạt dàn nóng hoặc bo mạch moto quạt.",
             "U0": "Thiếu môi chất lạnh (Thiếu Gas).",
             "U4": "Lỗi truyền tín hiệu giữa dàn nóng và dàn lạnh. \n🛠 HD: Kiểm tra dây F1-F2, bo mạch nóng/lạnh."
         },
         "LG Inverter": {
-            "CH01": "Hỏng cảm biến giàn lạnh.",
             "CH05": "Lỗi kết nối giàn nóng và giàn lạnh. \n🛠 HD: Kiểm tra dây truyền tín hiệu.",
-            "CH21": "Lỗi IC Công Suất (IPM). \n🛠 HD: Kiểm tra Block hoặc thay Board.",
-            "CH61": "Giàn nóng không giải nhiệt được. \n🛠 HD: Vệ sinh dàn nóng.",
-            "CH65": "Hỏng IC nguồn đuôi nóng."
+            "CH21": "Lỗi IC Công Suất (IPM). \n🛠 HD: Kiểm tra Block hoặc thay Board."
         }
     },
-    "Máy Giặt": {
-        "Electrolux": {
-            "E10": "Lỗi cấp nước. HD: Vệ sinh van cấp.",
-            "E20": "Lỗi thoát nước. HD: Kiểm tra bơm xả."
-            "Bếp Từ": {
+    "Bếp Từ": {
         "Midea/Kangaroo": {
             "E0": "Chưa có nồi hoặc nồi không phù hợp. \n🛠 HD: Đổi nồi có đáy nhiễm từ (hít nam châm).",
             "E1": "Quá nhiệt hoặc bếp quá tải. \n🛠 HD: Kiểm tra quạt gió, để bếp nghỉ 10 phút.",
@@ -119,6 +100,12 @@ DATA_FULL = {
             "E01/E02": "Lỗi module công suất. \n🛠 HD: Kiểm tra IGBT và cầu chỉnh lưu.",
             "F0": "Lỗi truyền thông. \n🛠 HD: Kiểm tra cáp nối giữa các board mạch."
         }
+    },
+    "Máy Giặt": {
+        "Electrolux": {
+            "E10": "Lỗi cấp nước. HD: Vệ sinh van cấp.",
+            "E20": "Lỗi thoát nước. HD: Kiểm tra bơm xả."
+        }
     }
 }
 
@@ -130,7 +117,7 @@ st.markdown(f"""
     </div>
 """, unsafe_allow_html=True)
 
-# MENU NÚT BẤM LỚN (GIỮ NGUYÊN)
+# MENU NÚT BẤM LỚN
 c1, c2 = st.columns(2)
 with c1:
     if st.button("🔍 TRA MÃ & HƯỚNG DẪN", use_container_width=True): st.session_state.page = "TRA"
@@ -163,14 +150,14 @@ if st.session_state.page == "TRA":
 elif st.session_state.page == "AI":
     st.divider()
     st.subheader("🧠 CHẨN ĐOÁN AI CHUYÊN SÂU")
-    benh = st.text_area("Mô tả bệnh (Vd: Quạt không quay, block không chạy...):")
+    benh = st.text_area("Mô tả bệnh (Vd: Bếp từ không nhận nồi, Điều hòa không mát...):")
     if st.button("AI PHÂN TÍCH", use_container_width=True):
-        st.info("🤖 AI Gợi ý: Kiểm tra nguồn cấp, tụ khởi động và cảm biến nhiệt độ.")
+        st.info("🤖 AI Gợi ý: Hãy kiểm tra linh kiện công suất (IGBT/Block) và các cảm biến nhiệt độ liên quan.")
 
 elif st.session_state.page == "THEM":
     st.divider()
     st.subheader("➕ LÀM GIÀU DỮ LIỆU KỸ THUẬT")
-    t_loai = st.selectbox("Thiết bị:", ["Điều Hòa", "Máy Giặt", "Bếp Từ"])
+    t_loai = st.selectbox("Thiết bị:", ["Điều Hòa", "Bếp Từ", "Máy Giặt"])
     t_hang = st.text_input("Hãng máy:")
     t_ma = st.text_input("Mã lỗi:").upper().strip()
     t_hd = st.text_area("Hướng dẫn sửa thực tế:")
@@ -189,5 +176,4 @@ if st.button("🚪 Đăng xuất", use_container_width=True):
     st.session_state.auth = None
     st.rerun()
 
-st.caption("BA DUY TECH v35.8 - NỀN TẢNG KỸ THUẬT SỐ 1")
-
+st.caption("BA DUY TECH v40.0 - CHUYÊN GIA SỬA CHỮA ĐIỆN LẠNH & NHÀ BẾP")
